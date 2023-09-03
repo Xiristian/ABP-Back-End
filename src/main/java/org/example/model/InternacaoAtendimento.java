@@ -2,13 +2,14 @@ package org.example.model;
 
 import java.time.LocalDate;
 
-public class Internacao_Atendimento extends Produto_Atendimento{
+public class InternacaoAtendimento extends ProdutoAtendimento {
+    private Internacao internacao;
     private LocalDate dataInternacao;
     private LocalDate dataLiberacao;
     private Double quantidadeDias;
     private Double valorTotal;
 
-    public Internacao_Atendimento(Long id, Double valor, Double desconto, LocalDate dataInternacao, LocalDate dataLiberacao, Double quantidadeDias, Double valorTotal) {
+    public InternacaoAtendimento(Long id, Double valor, Double desconto, LocalDate dataInternacao, LocalDate dataLiberacao, Double quantidadeDias, Double valorTotal) {
         super(id, valor, desconto);
         this.dataInternacao = dataInternacao;
         this.dataLiberacao = dataLiberacao;

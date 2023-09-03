@@ -1,10 +1,10 @@
 package org.example.model;
 
-public class Produto_Atendimento extends EntitiyId{
+public class ProdutoAtendimento extends EntitiyId{
     private Double valor;
     private Double desconto;
 
-    public Produto_Atendimento(Long id, Double valor, Double desconto) {
+    public ProdutoAtendimento(Long id, Double valor, Double desconto) {
         super(id);
         this.valor = valor;
         this.desconto = desconto;

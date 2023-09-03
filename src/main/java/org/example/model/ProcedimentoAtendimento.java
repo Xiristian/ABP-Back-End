@@ -2,21 +2,21 @@ package org.example.model;
 
 import java.time.LocalDate;
 
-public class Procedimento_Atendimento extends Produto_Atendimento{
-    private String procedimento;
+public class ProcedimentoAtendimento extends ProdutoAtendimento {
+    private Procedimento procedimento;
     private LocalDate data;
 
-    public Procedimento_Atendimento(Long id, Double valor, Double desconto, String procedimento, LocalDate data) {
+    public ProcedimentoAtendimento(Long id, Double valor, Double desconto, Procedimento procedimento, LocalDate data) {
         super(id, valor, desconto);
         this.procedimento = procedimento;
         this.data = data;
     }
 
-    public String getProcedimento() {
+    public Procedimento getProcedimento() {
         return procedimento;
     }
 
-    public void setProcedimento(String procedimento) {
+    public void setProcedimento(Procedimento procedimento) {
         this.procedimento = procedimento;
     }
 

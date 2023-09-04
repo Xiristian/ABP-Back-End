@@ -3,7 +3,10 @@ package org.example.model;
 public class EntitiyId {
     private Long id;
 
-    public EntitiyId(Long id) {
+  public EntitiyId() {
+  }
+
+  public EntitiyId(Long id) {
         this.id = id;
     }
 

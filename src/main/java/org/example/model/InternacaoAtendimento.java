@@ -9,12 +9,21 @@ public class InternacaoAtendimento extends ProdutoAtendimento {
     private Double quantidadeDias;
     private Double valorTotal;
 
-    public InternacaoAtendimento(Long id, Double valor, Double desconto, LocalDate dataInternacao, LocalDate dataLiberacao, Double quantidadeDias, Double valorTotal) {
+    public InternacaoAtendimento(Long id, Double valor, Double desconto, Internacao internacao, LocalDate dataInternacao, LocalDate dataLiberacao, Double quantidadeDias, Double valorTotal) {
         super(id, valor, desconto);
+        this.internacao = internacao;
         this.dataInternacao = dataInternacao;
         this.dataLiberacao = dataLiberacao;
         this.quantidadeDias = quantidadeDias;
         this.valorTotal = valorTotal;
+    }
+
+    public Internacao getInternacao() {
+        return internacao;
+    }
+
+    public void setInternacao(Internacao internacao) {
+        this.internacao = internacao;
     }
 
     public LocalDate getDataInternacao() {

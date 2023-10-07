@@ -1,7 +1,12 @@
-package org.example.model;
+package com.vetsys.vetsys.model;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+
+@Entity
 public class Especie extends EntitiyId {
 
+  @Column(nullable = false)
   private String descricao;
 
   public Especie() {

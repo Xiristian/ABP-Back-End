@@ -1,4 +1,4 @@
-package org.example.model;
+package com.vetsys.vetsys.model;
 
 public class Empregado extends Pessoa {
   private String areaAtuacao;

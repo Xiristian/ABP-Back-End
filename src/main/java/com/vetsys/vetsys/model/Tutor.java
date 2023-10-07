@@ -1,4 +1,4 @@
-package org.example.model;
+package com.vetsys.vetsys.model;
 import java.util.List;
 
 public class Tutor extends Pessoa{

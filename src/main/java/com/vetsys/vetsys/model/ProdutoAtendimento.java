@@ -1,4 +1,4 @@
-package org.example.model;
+package com.vetsys.vetsys.model;
 
 public class ProdutoAtendimento extends EntitiyId{
     private Double valor;

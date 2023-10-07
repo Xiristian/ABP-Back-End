@@ -1,6 +1,12 @@
-package org.example.model;
+package com.vetsys.vetsys.model;
 
+import javax.persistence.*;
+
+@MappedSuperclass
 public class EntitiyId {
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @Column(name = "id", nullable = false)
     private Long id;
 
   public EntitiyId() {

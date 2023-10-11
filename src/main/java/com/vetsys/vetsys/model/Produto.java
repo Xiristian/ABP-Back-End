@@ -1,8 +1,16 @@
 package com.vetsys.vetsys.model;
 
+import javax.persistence.*;
+
+@Entity
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "tipo_produto")
 public class Produto extends EntitiyId {
+    @Column(nullable = false)
     private String descricao;
+    @Column(nullable = false)
     private String observacao;
+    @Column(nullable = false)
     private Double valor;
 
     public Produto(Long id, String descricao, String observacao, Double valor) {
@@ -10,6 +18,10 @@ public class Produto extends EntitiyId {
         this.descricao = descricao;
         this.observacao = observacao;
         this.valor = valor;
+    }
+
+    public Produto() {
+
     }
 
     public String getDescricao() {

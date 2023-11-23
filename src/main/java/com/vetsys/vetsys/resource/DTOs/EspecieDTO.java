@@ -30,8 +30,6 @@ public class EspecieDTO {
         this.descricao = descricao;
     }
 
-    }
-
     public static EspecieDTO fromEntity(Especie especie){
         EspecieDTO dto = new EspecieDTO();
         dto.setId(especie.getId());

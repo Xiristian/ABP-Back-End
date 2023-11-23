@@ -1,6 +1,7 @@
 package com.vetsys.vetsys.service;
 
 import com.vetsys.vetsys.model.Especie;
+/*import com.vetsys.vetsys.model.QEspecie;*/
 import com.vetsys.vetsys.model.QEspecie;
 import com.vetsys.vetsys.repository.EspecieRepository;
 import org.modelmapper.ModelMapper;
@@ -47,12 +48,12 @@ public class EspecieService {
 
 
     public Especie alterar(Long id, Especie entity) {
-        Optional<Especie> existingProduoOptional = repository.findById(id);
-        if (existingProduoOptional.isEmpty()){
+        Optional<Especie> existingProdutoOptional = repository.findById(id);
+        if (existingProdutoOptional.isEmpty()){
             throw new NotFoundException("Espécie não encontrado");
         }
 
-        Especie existingEspecie = existingProduoOptional.get();
+        Especie existingEspecie = existingProdutoOptional.get();
         modelMapper.map(entity, existingEspecie);
         return repository.save(existingEspecie);
     }

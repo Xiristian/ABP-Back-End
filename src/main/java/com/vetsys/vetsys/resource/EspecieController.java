@@ -1,9 +1,12 @@
 package com.vetsys.vetsys.resource;
 
 import com.vetsys.vetsys.model.Especie;
+import com.vetsys.vetsys.resource.DTOs.EspecieDTO;
 import com.vetsys.vetsys.service.EspecieService;
 import com.vetsys.vetsys.service.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,9 +27,12 @@ public class EspecieController extends AbstractController {
     }
 
     @GetMapping
-    public ResponseEntity findAll(){
-        List<Especie> especies = service.buscaTodos();
-        return ResponseEntity.ok(especies);
+    public ResponseEntity findAll(@RequestParam(required = false) String filter,
+                                  @RequestParam(defaultValue = "0") int page,
+                                  @RequestParam(defaultValue = "10") int size){
+        Page<Especie> produtos = service.buscaTodos(filter, PageRequest.of(page, size));
+        Page<EspecieDTO> produtosDTO = EspecieDTO.fromEntity(produtos);
+        return ResponseEntity.ok(produtosDTO);
     }
 
     @GetMapping("{id}")

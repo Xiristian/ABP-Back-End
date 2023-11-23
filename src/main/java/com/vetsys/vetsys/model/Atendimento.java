@@ -1,26 +1,42 @@
 package com.vetsys.vetsys.model;
 
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
 
+@Entity
 public class Atendimento extends EntitiyId{
+    @ManyToOne
+    @JoinColumn(name = "animal_id")
     private Animal animal;
+    @ManyToOne
+    @JoinColumn(name = "tutor_id")
     private Tutor tutor;
+    @ManyToOne
+
+    @JoinColumn(name = "empregado_id")
+    private Empregado empregado;
+    @Column(nullable = false)
     private LocalDate dataAtendimento;
+    @OneToMany
     private List<ProdutoAtendimento> produtoAtendimento;
-    private List<ProdutoQuantitavelAtendimento> produtoQuantitavelAtendimento;
+    @Column(nullable = false)
     private Boolean houveInternacao;
+    @Column(nullable = false)
     private Double valorTotal;
 
 
-    public Atendimento(Animal animal, Tutor tutor, LocalDate dataAtendimento, List<ProdutoAtendimento> produtoAtendimento, List<ProdutoQuantitavelAtendimento> produtoQuantitavelAtendimento, Boolean houveInternacao, Double valorTotal) {
+    public Atendimento(Animal animal, Tutor tutor, Empregado empregado, LocalDate dataAtendimento, List<ProdutoAtendimento> produtoAtendimento, Boolean houveInternacao, Double valorTotal) {
         this.animal = animal;
         this.tutor = tutor;
+        this.empregado = empregado;
         this.dataAtendimento = dataAtendimento;
         this.produtoAtendimento = produtoAtendimento;
-        this.produtoQuantitavelAtendimento = produtoQuantitavelAtendimento;
         this.houveInternacao = houveInternacao;
         this.valorTotal = valorTotal;
+    }
+
+    public Atendimento() {
     }
 
     public Animal getAnimal() {
@@ -37,6 +53,14 @@ public class Atendimento extends EntitiyId{
 
     public void setTutor(Tutor tutor) {
         this.tutor = tutor;
+    }
+
+    public Empregado getEmpregado() {
+        return this.empregado;
+    }
+
+    public void setEmpregado(Empregado empregado) {
+        this.empregado = empregado;
     }
 
     public LocalDate getDataAtendimento() {
@@ -61,22 +85,6 @@ public class Atendimento extends EntitiyId{
 
     public void delProdutoAtendimento(ProdutoAtendimento produtoAtendimento){
         this.produtoAtendimento.remove(produtoAtendimento);
-    }
-
-    public List<ProdutoQuantitavelAtendimento> getProdutoQuantitavelAtendimento() {
-        return this.produtoQuantitavelAtendimento;
-    }
-
-    public void setProdutoQuantitavelAtendimento(List<ProdutoQuantitavelAtendimento> produtoQuantitavelAtendimento) {
-        this.produtoQuantitavelAtendimento = produtoQuantitavelAtendimento;
-    }
-
-    public void addProdutoQuantitavelAtendimento(ProdutoQuantitavelAtendimento produtoQuantitavelAtendimento){
-        this.produtoQuantitavelAtendimento.add(produtoQuantitavelAtendimento);
-    }
-
-    public void delProdutoQuantitavelAtendimento(ProdutoQuantitavelAtendimento produtoQuantitavelAtendimento){
-        this.produtoQuantitavelAtendimento.remove(produtoQuantitavelAtendimento);
     }
 
     public Boolean getHouveInternacao() {

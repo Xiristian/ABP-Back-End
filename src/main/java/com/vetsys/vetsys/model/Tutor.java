@@ -1,8 +1,15 @@
 package com.vetsys.vetsys.model;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import java.util.List;
 
+@Entity
 public class Tutor extends Pessoa{
+  @Column(name = "cpf")
   private String cpf;
+
+  @OneToMany(mappedBy = "tutor")
   private List<Animal> animais;
 
   public Tutor() {

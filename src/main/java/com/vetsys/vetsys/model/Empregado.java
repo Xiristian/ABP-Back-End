@@ -1,7 +1,14 @@
 package com.vetsys.vetsys.model;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+
+@Entity
 public class Empregado extends Pessoa {
+
+  @Column(name = "area_atuacao")
   private String areaAtuacao;
+  @Column(name = "cfmv")
   private String cfmv;
 
   public Empregado() {

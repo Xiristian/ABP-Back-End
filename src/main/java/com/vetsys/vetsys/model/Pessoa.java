@@ -1,9 +1,19 @@
 package com.vetsys.vetsys.model;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.MappedSuperclass;
+
+@MappedSuperclass
 public class Pessoa extends EntitiyId {
+
+ @Column(name = "nome")
   private String nome;
+ @Column(name = "telefone")
   private String telefone;
+ @Column(name = "endereco")
   private String endereco;
+ @Column(name = "email")
   private String email;
 
   public Pessoa() {

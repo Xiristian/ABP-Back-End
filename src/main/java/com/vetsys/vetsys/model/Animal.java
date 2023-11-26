@@ -30,6 +30,7 @@ public class Animal extends EntitiyId {
     this.observacao = observacao;
   }
 
+
   public String getNome() {
     return nome;
   }
@@ -71,4 +72,12 @@ public class Animal extends EntitiyId {
   }
 
 
+  public Object getDescricao() {
+      return null;
+  }
+
+
+  public Long getEspecieId() {
+    return null;
+  }
 }

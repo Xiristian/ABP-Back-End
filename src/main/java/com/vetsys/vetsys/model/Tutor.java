@@ -3,6 +3,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import java.util.List;
+import java.util.Optional;
 
 @Entity
 public class Tutor extends Pessoa{
@@ -20,7 +21,6 @@ public class Tutor extends Pessoa{
     this.cpf = cpf;
     this.animais = animais;
   }
-
   public String getCpf() {
     return cpf;
   }
@@ -44,6 +44,7 @@ public class Tutor extends Pessoa{
   public void delAnimais(Animal animal){
     this.animais.remove(animal);
   }
+
 
 
 }

@@ -39,7 +39,7 @@ public class EmpregadoService {
   public Empregado alterar(Long id, Empregado entity) {
     Optional<Empregado> existingEmpregadolOptional = repository.findById(id);
     if (existingEmpregadolOptional.isEmpty()){
-      throw new NotFoundException("Animal não encontrado");
+      throw new NotFoundException("Empregado não encontrado");
     }
 
     Empregado existingEmpregado = existingEmpregadolOptional.get();

@@ -1,6 +1,7 @@
 package com.vetsys.vetsys.resource.representation;
 
 import com.vetsys.vetsys.model.Animal;
+import com.vetsys.vetsys.model.Porte;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 
@@ -12,7 +13,10 @@ public class AnimalDTO {
   private Long id;
   private String nome;
   private int idade;
-
+  private Long especieId;
+  private Porte porte;
+  private String observacao;
+  
   public Long getId() {
     return id;
   }
@@ -45,11 +49,11 @@ public class AnimalDTO {
     this.especieId = especieId;
   }
 
-  public String getPorte() {
+  public Porte getPorte() {
     return porte;
   }
 
-  public void setPorte(String porte) {
+  public void setPorte(Porte porte) {
     this.porte = porte;
   }
 
@@ -61,10 +65,6 @@ public class AnimalDTO {
     this.observacao = observacao;
   }
 
-  private Long especieId;
-  private String porte;
-  private String observacao;
-
 
   public static AnimalDTO fromEntity(Animal animal){
     AnimalDTO dto = new AnimalDTO();
@@ -73,7 +73,7 @@ public class AnimalDTO {
     dto.setIdade(animal.getIdade());
     dto.setNome(animal.getNome());
     dto.setEspecieId(animal.getEspecieId());
-    //dto.setPorte(animal.getPorte());
+    dto.setPorte(animal.getPorte());
 
     return dto;
   }
@@ -84,8 +84,8 @@ public class AnimalDTO {
     animal.setObservacao(this.getObservacao());
     animal.setIdade(this.getIdade());
     animal.setNome(this.getNome());
-    // erro maldito animal.setEspecieId(this.getEspecieId());
-    // erro tb esse odio animal.setPorte(this.getPorte());
+    animal.setEspecieId(this.getEspecieId());
+    animal.setPorte(this.getPorte());
     return animal;
   }
 

@@ -1,10 +1,22 @@
 package com.vetsys.vetsys.model;
 
+import javax.persistence.*;
+
+@Entity
 public class Animal extends EntitiyId {
+  @Column(name = "nome")
   private String nome;
+
+  @Column(name = "idade")
   private int idade;
+
+  @ManyToOne
+  @JoinColumn(name = "especie_id")
   private Especie especie;
-  private Porte porte;
+  @Enumerated(EnumType.STRING)
+  @Column(name = "porte")  private Porte porte;
+
+  @Column(name = "observacao")
   private String observacao;
 
   public Animal() {
@@ -17,6 +29,7 @@ public class Animal extends EntitiyId {
     this.porte = porte;
     this.observacao = observacao;
   }
+
 
   public String getNome() {
     return nome;
@@ -57,6 +70,4 @@ public class Animal extends EntitiyId {
   public void setObservacao(String observacao) {
     this.observacao = observacao;
   }
-
-
 }

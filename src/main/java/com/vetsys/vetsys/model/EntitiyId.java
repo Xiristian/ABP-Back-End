@@ -20,7 +20,7 @@ public class EntitiyId {
         return id;
     }
 
-    public void setId(Long id) {
+    public static void setId(Long id) {
         this.id = id;
     }
 }

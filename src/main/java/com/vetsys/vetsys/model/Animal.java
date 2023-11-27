@@ -70,14 +70,4 @@ public class Animal extends EntitiyId {
   public void setObservacao(String observacao) {
     this.observacao = observacao;
   }
-
-
-  public Object getDescricao() {
-      return null;
-  }
-
-
-  public Long getEspecieId() {
-    return null;
-  }
 }

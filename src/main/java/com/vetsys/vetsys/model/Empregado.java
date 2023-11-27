@@ -28,7 +28,7 @@ public class Empregado extends Pessoa {
     this.areaAtuacao = areaAtuacao;
   }
 
-  public Empregado getCfmv() {
+  public String getCfmv() {
     return cfmv;
   }
 

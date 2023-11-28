@@ -24,6 +24,7 @@ public class Produto extends EntitiyId {
 
     }
 
+
     public String getDescricao() {
         return descricao;
     }
@@ -47,6 +48,7 @@ public class Produto extends EntitiyId {
     public void setValor(Double valor) {
         this.valor = valor;
     }
+
 }
 
 

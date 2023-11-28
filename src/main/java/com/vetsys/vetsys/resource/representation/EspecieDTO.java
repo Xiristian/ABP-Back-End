@@ -1,4 +1,4 @@
-package com.vetsys.vetsys.resource.DTOs;
+package com.vetsys.vetsys.resource.representation;
 
 import com.vetsys.vetsys.model.Especie;
 import org.springframework.data.domain.Page;

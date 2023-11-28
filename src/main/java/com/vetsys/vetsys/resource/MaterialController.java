@@ -3,10 +3,14 @@ package com.vetsys.vetsys.resource;
 
 import com.vetsys.vetsys.model.Animal;
 import com.vetsys.vetsys.model.Material;
+import com.vetsys.vetsys.model.Material;
+import com.vetsys.vetsys.resource.representation.MaterialDTO;
 import com.vetsys.vetsys.service.AnimalService;
 import com.vetsys.vetsys.service.MaterialService;
 import com.vetsys.vetsys.service.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,9 +32,12 @@ public class MaterialController extends AbstractController{
     }
 
     @GetMapping
-    public ResponseEntity findAll(){
-        List<Material> material = service.buscaTodos();
-        return ResponseEntity.ok(material);
+    public ResponseEntity findAll(@RequestParam(required = false) String filter,
+                                  @RequestParam(defaultValue = "0") int page,
+                                  @RequestParam(defaultValue = "10") int size){
+        Page<Material> materiais = service.buscaTodos(filter, PageRequest.of(page, size));
+        Page<MaterialDTO> materiaisDTO = MaterialDTO.fromEntity(materiais);
+        return ResponseEntity.ok(materiaisDTO);
     }
 
     @GetMapping("{id}")

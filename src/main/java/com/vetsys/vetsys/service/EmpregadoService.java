@@ -1,10 +1,13 @@
 package com.vetsys.vetsys.service;
 
+import com.vetsys.vetsys.model.Animal;
 import com.vetsys.vetsys.model.Empregado;
 import com.vetsys.vetsys.model.QEmpregado;
 import com.vetsys.vetsys.repository.EmpregadoRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -26,8 +29,12 @@ public class EmpregadoService {
   }
 
 
-  public List<Empregado> buscaTodos() {
-    return repository.findAll();
+  public List<Empregado> buscaTodos(String filter) {
+    return repository.findAll(filter, Empregado.class);
+  }
+
+  public Page<Empregado> buscaTodos(String filter, Pageable pageable) {
+    return repository.findAll(filter, Empregado.class, pageable);
   }
 
 

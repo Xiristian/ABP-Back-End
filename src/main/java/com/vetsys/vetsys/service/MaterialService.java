@@ -1,10 +1,13 @@
 package com.vetsys.vetsys.service;
 
 
+import com.vetsys.vetsys.model.Internacao;
 import com.vetsys.vetsys.model.Material;
 import com.vetsys.vetsys.repository.MaterialRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,8 +25,12 @@ public class MaterialService {
         return repository.save(entity);
     }
 
-    public List<Material> buscaTodos() {
-        return repository.findAll();
+    public List<Material> buscaTodos(String filter) {
+        return repository.findAll(filter, Material.class);
+    }
+
+    public Page<Material> buscaTodos(String filter, Pageable pageable) {
+        return repository.findAll(filter, Material.class, pageable);
     }
 
     public Material buscaPorId(Long id) {

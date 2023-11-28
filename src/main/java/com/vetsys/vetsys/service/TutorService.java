@@ -1,12 +1,11 @@
 package com.vetsys.vetsys.service;
 
-import com.vetsys.vetsys.model.Animal;
-import com.vetsys.vetsys.model.QAnimal;
-import com.vetsys.vetsys.model.QTutor;
-import com.vetsys.vetsys.model.Tutor;
+import com.vetsys.vetsys.model.*;
 import com.vetsys.vetsys.repository.TutorRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -28,11 +27,13 @@ public class TutorService {
     return repository.save(entity);
   }
 
-
-  public List<Tutor> buscaTodos() {
-    return repository.findAll();
+  public List<Tutor> buscaTodos(String filter) {
+    return repository.findAll(filter, Tutor.class);
   }
 
+  public Page<Tutor> buscaTodos(String filter, Pageable pageable) {
+    return repository.findAll(filter, Tutor.class, pageable);
+  }
 
   public Tutor buscaPorId(Long id) {
     return repository.findById(id).orElse(null);

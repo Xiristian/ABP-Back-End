@@ -1,11 +1,14 @@
 package com.vetsys.vetsys.service;
 
 import com.vetsys.vetsys.model.Animal;
+import com.vetsys.vetsys.model.Especie;
 import com.vetsys.vetsys.model.Produto;
 import com.vetsys.vetsys.model.QAnimal;
 import com.vetsys.vetsys.repository.AnimalRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -23,11 +26,13 @@ public class AnimalService {
     return repository.save(entity);
   }
 
-
-  public List<Animal> buscaTodos() {
-    return repository.findAll();
+  public List<Animal> buscaTodos(String filter) {
+    return repository.findAll(filter, Animal.class);
   }
 
+  public Page<Animal> buscaTodos(String filter, Pageable pageable) {
+    return repository.findAll(filter, Animal.class, pageable);
+  }
 
   public Animal buscaPorId(Long id) {
     return repository.findById(id).orElse(null);

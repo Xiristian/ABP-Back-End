@@ -2,9 +2,13 @@ package com.vetsys.vetsys.resource;
 
 import com.vetsys.vetsys.model.Empregado;
 import com.vetsys.vetsys.model.Tutor;
+import com.vetsys.vetsys.model.Tutor;
+import com.vetsys.vetsys.resource.representation.TutorDTO;
 import com.vetsys.vetsys.service.NotFoundException;
 import com.vetsys.vetsys.service.TutorService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,11 +34,14 @@ public class TutorController extends AbstractController {
     Tutor save = service.salvar(entity);
     return ResponseEntity.created(URI.create("/api/tutor/" + entity.getId())).body(save);
   }
-
+  
   @GetMapping
-  public ResponseEntity findAll() {
-    List< Tutor>  Tutor = service.buscaTodos();
-    return ResponseEntity.ok( Tutor);
+  public ResponseEntity findAll(@RequestParam(required = false) String filter,
+                                @RequestParam(defaultValue = "0") int page,
+                                @RequestParam(defaultValue = "10") int size){
+    Page<Tutor> tutores = service.buscaTodos(filter, PageRequest.of(page, size));
+    Page<TutorDTO> tutoresDTO = TutorDTO.fromEntity(tutores);
+    return ResponseEntity.ok(tutoresDTO);
   }
 
   @GetMapping("{id}")

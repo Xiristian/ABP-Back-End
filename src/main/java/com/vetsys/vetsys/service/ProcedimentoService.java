@@ -4,6 +4,8 @@ import com.vetsys.vetsys.model.QProcedimento;
 import com.vetsys.vetsys.repository.ProcedimentoRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -23,16 +25,17 @@ public class ProcedimentoService {
         return repository.save(entity);
     }
 
-
-    public List<Procedimento> buscaTodos() {
-        return repository.findAll();
+    public List<Procedimento> buscaTodos(String filter) {
+        return repository.findAll(filter, Procedimento.class);
     }
 
+    public Page<Procedimento> buscaTodos(String filter, Pageable pageable) {
+        return repository.findAll(filter, Procedimento.class, pageable);
+    }
 
     public Procedimento buscaPorId(Long id) {
         return repository.findById(id).orElse(null);
     }
-
 
     public Procedimento alterar(Long id, Procedimento entity) {
         Optional<Procedimento> existingProcedimentoOptional = repository.findById(id);
@@ -44,7 +47,6 @@ public class ProcedimentoService {
         modelMapper.map(entity, existingProcedimento);
         return repository.save(existingProcedimento);
     }
-
 
     public void remover(Long id) {
         repository.deleteById(id);

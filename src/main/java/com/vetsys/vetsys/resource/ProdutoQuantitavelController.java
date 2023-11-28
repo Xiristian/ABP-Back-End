@@ -1,11 +1,16 @@
 package com.vetsys.vetsys.resource;
 
 import com.vetsys.vetsys.model.Animal;
+import com.vetsys.vetsys.model.Produto;
 import com.vetsys.vetsys.model.ProdutoQuantitavel;
+import com.vetsys.vetsys.resource.representation.ProdutoDTO;
+import com.vetsys.vetsys.resource.representation.ProdutoQuantitavelDTO;
 import com.vetsys.vetsys.service.AnimalService;
 import com.vetsys.vetsys.service.NotFoundException;
 import com.vetsys.vetsys.service.ProdutoQuantitavelService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,9 +33,12 @@ public class ProdutoQuantitavelController extends AbstractController{
     }
 
     @GetMapping
-    public ResponseEntity findAll(){
-        List<ProdutoQuantitavel> produtoquantitavel = service.buscaTodos();
-        return ResponseEntity.ok(produtoquantitavel);
+    public ResponseEntity findAll(@RequestParam(required = false) String filter,
+                                  @RequestParam(defaultValue = "0") int page,
+                                  @RequestParam(defaultValue = "10") int size){
+        Page<ProdutoQuantitavel> produtosQuantitaveis = service.buscaTodos(filter, PageRequest.of(page, size));
+        Page<ProdutoQuantitavelDTO> produtosQuantitaveisDTO = ProdutoQuantitavelDTO.fromEntity(produtosQuantitaveis);
+        return ResponseEntity.ok(produtosQuantitaveisDTO);
     }
 
     @GetMapping("{id}")

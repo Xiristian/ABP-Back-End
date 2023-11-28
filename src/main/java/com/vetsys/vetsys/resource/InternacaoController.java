@@ -1,9 +1,13 @@
 package com.vetsys.vetsys.resource;
 
 import com.vetsys.vetsys.model.Internacao;
+import com.vetsys.vetsys.model.Internacao;
+import com.vetsys.vetsys.resource.representation.InternacaoDTO;
 import com.vetsys.vetsys.service.InternacaoService;
 import com.vetsys.vetsys.service.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,9 +28,12 @@ public class InternacaoController extends AbstractController {
     }
 
     @GetMapping
-    public ResponseEntity findAll(){
-        List<Internacao> internacaos = service.buscaTodos();
-        return ResponseEntity.ok(internacaos);
+    public ResponseEntity findAll(@RequestParam(required = false) String filter,
+                                  @RequestParam(defaultValue = "0") int page,
+                                  @RequestParam(defaultValue = "10") int size){
+        Page<Internacao> internacoes = service.buscaTodos(filter, PageRequest.of(page, size));
+        Page<InternacaoDTO> internacoesDTO = InternacaoDTO.fromEntity(internacoes);
+        return ResponseEntity.ok(internacoesDTO);
     }
 
     @GetMapping("{id}")

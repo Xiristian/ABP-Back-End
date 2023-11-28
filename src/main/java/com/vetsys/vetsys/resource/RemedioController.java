@@ -3,9 +3,13 @@ package com.vetsys.vetsys.resource;
 
 
 import com.vetsys.vetsys.model.Remedio;
+import com.vetsys.vetsys.model.Remedio;
+import com.vetsys.vetsys.resource.representation.RemedioDTO;
 import com.vetsys.vetsys.service.NotFoundException;
 import com.vetsys.vetsys.service.RemedioService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,9 +31,12 @@ public class RemedioController extends AbstractController{
     }
 
     @GetMapping
-    public ResponseEntity findAll(){
-        List<Remedio> remedio = service.buscaTodos();
-        return ResponseEntity.ok(remedio);
+    public ResponseEntity findAll(@RequestParam(required = false) String filter,
+                                  @RequestParam(defaultValue = "0") int page,
+                                  @RequestParam(defaultValue = "10") int size){
+        Page<Remedio> remedios = service.buscaTodos(filter, PageRequest.of(page, size));
+        Page<RemedioDTO> remediosDTO = RemedioDTO.fromEntity(remedios);
+        return ResponseEntity.ok(remediosDTO);
     }
 
     @GetMapping("{id}")

@@ -1,9 +1,11 @@
 package com.vetsys.vetsys.resource;
-import com.vetsys.vetsys.model.Animal;
 import com.vetsys.vetsys.model.Empregado;
+import com.vetsys.vetsys.resource.representation.EmpregadoDTO;
 import com.vetsys.vetsys.service.EmpregadoService;
 import com.vetsys.vetsys.service.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,9 +31,12 @@ public class EmpregadoController extends AbstractController {
   }
 
   @GetMapping
-  public ResponseEntity findAll() {
-    List<Empregado> Empregado = service.buscaTodos();
-    return ResponseEntity.ok(Empregado);
+  public ResponseEntity findAll(@RequestParam(required = false) String filter,
+                                @RequestParam(defaultValue = "0") int page,
+                                @RequestParam(defaultValue = "10") int size){
+    Page<Empregado> empregados = service.buscaTodos(filter, PageRequest.of(page, size));
+    Page<EmpregadoDTO> empregadosDTO = EmpregadoDTO.fromEntity(empregados);
+    return ResponseEntity.ok(empregadosDTO);
   }
 
   @GetMapping("{id}")

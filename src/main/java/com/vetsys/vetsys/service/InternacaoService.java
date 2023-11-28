@@ -5,6 +5,8 @@ import com.vetsys.vetsys.model.QInternacao;
 import com.vetsys.vetsys.repository.InternacaoRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -29,6 +31,13 @@ public class InternacaoService {
         return repository.findAll();
     }
 
+    public List<Internacao> buscaTodos(String filter) {
+        return repository.findAll(filter, Internacao.class);
+    }
+
+    public Page<Internacao> buscaTodos(String filter, Pageable pageable) {
+        return repository.findAll(filter, Internacao.class, pageable);
+    }
 
     public Internacao buscaPorId(Long id) {
         return repository.findById(id).orElse(null);

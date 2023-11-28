@@ -1,9 +1,12 @@
 package com.vetsys.vetsys.service;
 
+import com.vetsys.vetsys.model.Produto;
 import com.vetsys.vetsys.model.Remedio;
 import com.vetsys.vetsys.repository.RemedioRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,8 +24,12 @@ public class RemedioService {
         return repository.save(entity);
     }
 
-    public List<Remedio> buscaTodos() {
-        return repository.findAll();
+    public List<Remedio> buscaTodos(String filter) {
+        return repository.findAll(filter, Remedio.class);
+    }
+
+    public Page<Remedio> buscaTodos(String filter, Pageable pageable) {
+        return repository.findAll(filter, Remedio.class, pageable);
     }
 
     public Remedio buscaPorId(Long id) {

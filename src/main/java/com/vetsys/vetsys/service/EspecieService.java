@@ -32,7 +32,6 @@ public class EspecieService {
         return repository.save(entity);
     }
 
-
     public List<Especie> buscaTodos(String filter) {
         return repository.findAll(filter, Especie.class);
     }

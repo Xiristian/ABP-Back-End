@@ -1,9 +1,13 @@
 package com.vetsys.vetsys.resource;
 
 import com.vetsys.vetsys.model.Procedimento;
+import com.vetsys.vetsys.model.Procedimento;
+import com.vetsys.vetsys.resource.representation.ProcedimentoDTO;
 import com.vetsys.vetsys.service.ProcedimentoService;
 import com.vetsys.vetsys.service.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,9 +28,12 @@ public class ProcedimentoController extends AbstractController {
     }
 
     @GetMapping
-    public ResponseEntity findAll(){
-        List<Procedimento> procedimentos = service.buscaTodos();
-        return ResponseEntity.ok(procedimentos);
+    public ResponseEntity findAll(@RequestParam(required = false) String filter,
+                                  @RequestParam(defaultValue = "0") int page,
+                                  @RequestParam(defaultValue = "10") int size){
+        Page<Procedimento> procedimentos = service.buscaTodos(filter, PageRequest.of(page, size));
+        Page<ProcedimentoDTO> procedimentosDTO = ProcedimentoDTO.fromEntity(procedimentos);
+        return ResponseEntity.ok(procedimentosDTO);
     }
 
     @GetMapping("{id}")

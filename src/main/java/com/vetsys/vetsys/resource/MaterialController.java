@@ -15,7 +15,7 @@ import java.net.URI;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/materiais")
+@RequestMapping("api/material")
 public class MaterialController extends AbstractController{
 
     @Autowired
@@ -24,7 +24,7 @@ public class MaterialController extends AbstractController{
     @PostMapping
     public ResponseEntity create(@RequestBody @Valid Material entity){
         Material save = service.salvar(entity);
-        return ResponseEntity.created(URI.create("/api/materiais/" + entity.getId())).body(save);
+        return ResponseEntity.created(URI.create("/api/material/" + entity.getId())).body(save);
     }
 
     @GetMapping

@@ -3,33 +3,21 @@ package com.vetsys.vetsys.model;
 import javax.persistence.*;
 
 @Entity
-@DiscriminatorValue("ProdutoQuantitavelAtendimento")
+@DiscriminatorValue("produto_quantitavel_atendimento")
 public class ProdutoQuantitavelAtendimento extends ProdutoAtendimento {
-
-    @ManyToOne
-    @JoinColumn(name = "produto_id", nullable = false)
-    private Produto produtoQuantitavel;
 
     @Column(name = "quantidade", nullable = false)
     private int quantidade;
     @Column(name = "valor_total", nullable = false)
     private Double valorTotal;
 
-    public ProdutoQuantitavelAtendimento(Long id, Double valor, Double desconto, Produto produtoQuantitavel, int quantidade, Double valorTotal) {
-        super(id, valor, desconto);
-        this.produtoQuantitavel = produtoQuantitavel;
+    public ProdutoQuantitavelAtendimento(Long id, Produto produto, Double valor, Double desconto, Atendimento atendimento, int quantidade, Double valorTotal) {
+        super(id, produto, valor, desconto, atendimento);
         this.quantidade = quantidade;
         this.valorTotal = valorTotal;
     }
 
     public ProdutoQuantitavelAtendimento() {
-    }
-    public Produto getProdutoQuantitavel() {
-        return produtoQuantitavel;
-    }
-
-    public void setProdutoQuantitavel(Produto produtoQuantitavel) {
-        this.produtoQuantitavel = produtoQuantitavel;
     }
 
     public int getQuantidade() {

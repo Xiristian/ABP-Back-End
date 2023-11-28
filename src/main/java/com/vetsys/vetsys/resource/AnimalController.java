@@ -11,7 +11,7 @@ import java.net.URI;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/animais")
+@RequestMapping("api/animal")
 public class AnimalController extends AbstractController{
 
   @Autowired
@@ -20,7 +20,7 @@ public class AnimalController extends AbstractController{
   @PostMapping
   public ResponseEntity create(@RequestBody @Valid Animal entity){
     Animal save = service.salvar(entity);
-    return ResponseEntity.created(URI.create("/api/animais/" + entity.getId())).body(save);
+    return ResponseEntity.created(URI.create("/api/animal/" + entity.getId())).body(save);
   }
 
   @GetMapping

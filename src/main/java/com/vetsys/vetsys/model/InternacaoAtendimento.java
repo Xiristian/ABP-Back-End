@@ -6,9 +6,6 @@ import java.time.LocalDate;
 @Entity
 @DiscriminatorValue("internacao_atendimento")
 public class InternacaoAtendimento extends ProdutoAtendimento {
-    @ManyToOne
-    @JoinColumn(name = "internacao_id")
-    private Internacao internacao;
     @Column(nullable = false, name = "data_internacao")
     private LocalDate dataInternacao;
     @Column(nullable = false, name = "data_liberacao")
@@ -18,9 +15,8 @@ public class InternacaoAtendimento extends ProdutoAtendimento {
     @Column(nullable = false, name = "valor_total")
     private Double valorTotal;
 
-    public InternacaoAtendimento(Long id, Double valor, Double desconto, Internacao internacao, LocalDate dataInternacao, LocalDate dataLiberacao, Double quantidadeDias, Double valorTotal) {
-        super(id, valor, desconto);
-        this.internacao = internacao;
+    public InternacaoAtendimento(Long id, Produto produto, Double valor, Double desconto, Atendimento atendimento, LocalDate dataInternacao, LocalDate dataLiberacao, Double quantidadeDias, Double valorTotal) {
+        super(id, produto, valor, desconto, atendimento);
         this.dataInternacao = dataInternacao;
         this.dataLiberacao = dataLiberacao;
         this.quantidadeDias = quantidadeDias;
@@ -31,13 +27,6 @@ public class InternacaoAtendimento extends ProdutoAtendimento {
 
     }
 
-    public Internacao getInternacao() {
-        return internacao;
-    }
-
-    public void setInternacao(Internacao internacao) {
-        this.internacao = internacao;
-    }
 
     public LocalDate getDataInternacao() {
         return dataInternacao;

@@ -13,7 +13,7 @@ import java.net.URI;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/tutores")
+@RequestMapping("api/tutor")
 public class TutorController extends AbstractController {
 
   @Autowired
@@ -28,7 +28,7 @@ public class TutorController extends AbstractController {
   @PostMapping
   public ResponseEntity create(@RequestBody @Valid Tutor entity) {
     Tutor save = service.salvar(entity);
-    return ResponseEntity.created(URI.create("/api/tutores/" + entity.getId())).body(save);
+    return ResponseEntity.created(URI.create("/api/tutor/" + entity.getId())).body(save);
   }
 
   @GetMapping

@@ -22,8 +22,8 @@ public class TutorService {
   private ModelMapper modelMapper;
 
   public Tutor salvar(Tutor entity) {
-    if (!repository.findAll(QTutor.tutor.nome.eq(entity.getNome())).isEmpty()){
-      throw new ValidationException("Nenhum ttutor cadastrado!");
+    if (!repository.findAll(QTutor.tutor.cpf.eq(entity.getCpf())).isEmpty()){
+      throw new ValidationException("Já existe um tutor com esse CPF cadastrado!");
     }
     return repository.save(entity);
   }

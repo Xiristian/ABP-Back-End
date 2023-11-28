@@ -29,9 +29,9 @@ public class EspecieController extends AbstractController {
     public ResponseEntity findAll(@RequestParam(required = false) String filter,
                                   @RequestParam(defaultValue = "0") int page,
                                   @RequestParam(defaultValue = "10") int size){
-        Page<Especie> produtos = service.buscaTodos(filter, PageRequest.of(page, size));
-        Page<EspecieDTO> produtosDTO = EspecieDTO.fromEntity(produtos);
-        return ResponseEntity.ok(produtosDTO);
+        Page<Especie> especies = service.buscaTodos(filter, PageRequest.of(page, size));
+        Page<EspecieDTO> especiesDTO = EspecieDTO.fromEntity(especies);
+        return ResponseEntity.ok(especiesDTO);
     }
 
     @GetMapping("{id}")

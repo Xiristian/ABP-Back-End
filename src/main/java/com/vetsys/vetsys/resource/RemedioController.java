@@ -14,7 +14,7 @@ import java.net.URI;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/Remedio")
+@RequestMapping("api/remedio")
 public class RemedioController extends AbstractController{
 
     @Autowired
@@ -23,7 +23,7 @@ public class RemedioController extends AbstractController{
     @PostMapping
     public ResponseEntity create(@RequestBody @Valid Remedio entity){
         Remedio save = service.salvar(entity);
-        return ResponseEntity.created(URI.create("/api/Remedio/" + entity.getId())).body(save);
+        return ResponseEntity.created(URI.create("/api/remedio/" + entity.getId())).body(save);
     }
 
     @GetMapping

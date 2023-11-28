@@ -12,7 +12,7 @@ import java.net.URI;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/emprego")
+@RequestMapping("api/empregado")
 public class EmpregadoController extends AbstractController {
   @Autowired
   private EmpregadoService service;
@@ -25,7 +25,7 @@ public class EmpregadoController extends AbstractController {
   @PostMapping
   public ResponseEntity create(@RequestBody @Valid Empregado entity) {
     Empregado save = service.salvar(entity);
-    return ResponseEntity.created(URI.create("/api/animais/" + entity.getId())).body(save);
+    return ResponseEntity.created(URI.create("/api/empregado/" + entity.getId())).body(save);
   }
 
   @GetMapping

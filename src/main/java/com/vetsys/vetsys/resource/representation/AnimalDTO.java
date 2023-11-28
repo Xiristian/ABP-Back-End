@@ -13,7 +13,7 @@ public class AnimalDTO {
   private Long id;
   private String nome;
   private int idade;
-  private Long especieId;
+  private EspecieDTO especie;
   private Porte porte;
   private String observacao;
   
@@ -41,12 +41,12 @@ public class AnimalDTO {
     this.idade = idade;
   }
 
-  public Long getEspecieId() {
-    return especieId;
+  public EspecieDTO getEspecie() {
+    return especie;
   }
 
-  public void setEspecieId(Long especieId) {
-    this.especieId = especieId;
+  public void setEspecie(EspecieDTO especie) {
+    this.especie = especie;
   }
 
   public Porte getPorte() {
@@ -72,7 +72,7 @@ public class AnimalDTO {
     dto.setObservacao(animal.getObservacao());
     dto.setIdade(animal.getIdade());
     dto.setNome(animal.getNome());
-    dto.setEspecieId(animal.getEspecieId());
+    dto.setEspecie(EspecieDTO.fromEntity(animal.getEspecie()));
     dto.setPorte(animal.getPorte());
 
     return dto;
@@ -84,7 +84,7 @@ public class AnimalDTO {
     animal.setObservacao(this.getObservacao());
     animal.setIdade(this.getIdade());
     animal.setNome(this.getNome());
-    animal.setEspecieId(this.getEspecieId());
+    animal.setEspecie(this.getEspecie().toEntity());
     animal.setPorte(this.getPorte());
     return animal;
   }
@@ -93,6 +93,14 @@ public class AnimalDTO {
     List<AnimalDTO> animalDTOList = animalPage.getContent().stream()
       .map(AnimalDTO::fromEntity) .collect(Collectors.toList());
     return new PageImpl<>(animalDTOList, animalPage.getPageable(), animalPage.getTotalElements());
+  }
+
+  public static List<AnimalDTO> fromEntity(List<Animal> animais) {
+    return animais.stream().map(AnimalDTO::fromEntity).collect(Collectors.toList());
+  }
+
+  public static List<Animal> toEntity(List<AnimalDTO> dtos) {
+    return dtos.stream().map(dto -> dto.toEntity()).collect(Collectors.toList());
   }
 
 }

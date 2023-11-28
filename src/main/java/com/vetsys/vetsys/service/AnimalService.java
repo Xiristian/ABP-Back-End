@@ -20,9 +20,6 @@ public class AnimalService {
   private ModelMapper modelMapper;
 
   public Animal salvar(Animal entity) {
-    if (!repository.findAll(QAnimal.animal.observacao.eq(entity.getObservacao())).isEmpty()){
-      throw new ValidationException("Não existe uma observação cadastrada!");
-    }
     return repository.save(entity);
   }
 

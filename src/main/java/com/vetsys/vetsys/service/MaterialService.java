@@ -12,8 +12,6 @@ import java.util.Optional;
 
 @Service
 public class MaterialService {
-
-
     @Autowired
     private MaterialRepository repository;
     @Autowired
@@ -21,8 +19,6 @@ public class MaterialService {
 
 
     public Material salvar(Material entity) {
-        if (!repository.findAll(QMaterial.material.quantidade.q(entity.getQuantidade())).isEmpty())
-            throw new ValidationException("Não existe uma quantidade cadastrada!");
         return repository.save(entity);
     }
 

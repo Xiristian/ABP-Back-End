@@ -65,7 +65,7 @@ public class ProdutoDTO {
     }
 
     public static Page<ProdutoDTO> fromEntity(Page<Produto> produtos){
-        List<ProdutoDTO> produtosFind = produtos.stream().map(produto -> fromEntity(produto)).collect(Collectors.toList());
+        List<ProdutoDTO> produtosFind = produtos.stream().map(ProdutoDTO::fromEntity).collect(Collectors.toList());
         return new PageImpl<>(produtosFind, produtos.getPageable(), produtos.getTotalElements());
     }
 }

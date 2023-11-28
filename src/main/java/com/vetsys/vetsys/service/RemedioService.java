@@ -1,16 +1,15 @@
 package com.vetsys.vetsys.service;
 
-import com.vetsys.vetsys.model.Animal;
-import com.vetsys.vetsys.model.QAnimal;
 import com.vetsys.vetsys.model.Remedio;
-import com.vetsys.vetsys.repository.MaterialRepository;
 import com.vetsys.vetsys.repository.RemedioRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class RemedioService {
 
     @Autowired
@@ -19,9 +18,6 @@ public class RemedioService {
     private ModelMapper modelMapper;
 
     public Remedio salvar(Remedio entity) {
-        if (!repository.findAll(QRemedio.remedio.contraIndicacoes.eq(entity.getContraIndicacoes())).isEmpty()){
-            throw new ValidationException("Não existe uma observação cadastrada!");
-        }
         return repository.save(entity);
     }
 
@@ -34,14 +30,18 @@ public class RemedioService {
     }
 
     public Remedio alterar(Long id, Remedio entity) {
-        Optional<Remedio> eexistingRemedioOptional = repository.findById(id);
-        if (eexistingRemedioOptional.isEmpty()){
-            throw new NotFoundException("Remedio não encontrado");
+        Optional<Remedio> existingRemedioOptional = repository.findById(id);
+        if (existingRemedioOptional.isEmpty()){
+            throw new NotFoundException("Remédio não encontrado");
         }
 
-        Remedio existingRemedio = eexistingRemedioOptional.get();
+        Remedio existingRemedio = existingRemedioOptional.get();
         modelMapper.map(entity, existingRemedio);
         return repository.save(existingRemedio);
+    }
+
+    public void remover(Long id) {
+        repository.deleteById(id);
     }
 
 }

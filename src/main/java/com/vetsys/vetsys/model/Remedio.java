@@ -5,7 +5,7 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
 @Entity
-@DiscriminatorValue("Remedio")
+@DiscriminatorValue("remedio")
 public class Remedio extends ProdutoQuantitavel{
 
     @Column(name = "contra_indicacoes", nullable = false)
@@ -18,7 +18,8 @@ public class Remedio extends ProdutoQuantitavel{
         this.contraIndicacoes = contraIndicacoes;
     }
 
-    public Remedio(String contraIndicacoes) {
+    public Remedio(Long id, String descricao, String observacao, Double valor, String contraIndicacoes) {
+        super(id, descricao, observacao, valor);
         this.contraIndicacoes = contraIndicacoes;
     }
 

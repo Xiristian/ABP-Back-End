@@ -19,7 +19,7 @@ public class InternacaoService {
 
     public Internacao salvar(Internacao entity) {
         if (!repository.findAll(QInternacao.internacao.descricao.eq(entity.getDescricao())).isEmpty()){
-            throw new ValidationException("Já existe um internacao com essa descrição cadastrada!");
+            throw new ValidationException("Já existe um internação com essa descrição cadastrada!");
         }
         return repository.save(entity);
     }

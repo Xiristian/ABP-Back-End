@@ -45,8 +45,7 @@ public class EspecieDTO {
     }
 
     public static Page<EspecieDTO> fromEntity(Page<Especie> especies){
-        List<EspecieDTO> especiesFind = especies.stream().map(especie -> fromEntity(especie)).collect(Collectors.toList());
-        Page<EspecieDTO> especiesDTO = new PageImpl<>(especiesFind, especies.getPageable(), especies.getTotalElements());
-        return especiesDTO;
+        List<EspecieDTO> especiesFind = especies.stream().map(EspecieDTO::fromEntity).collect(Collectors.toList());
+        return new PageImpl<>(especiesFind, especies.getPageable(), especies.getTotalElements());
     }
 }

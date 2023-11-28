@@ -15,7 +15,7 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("api/ProdutoQuantitavel")
+@RequestMapping("api/produtoquantitavel")
 public class ProdutoQuantitavelController extends AbstractController{
 
     @Autowired
@@ -24,7 +24,7 @@ public class ProdutoQuantitavelController extends AbstractController{
     @PostMapping
     public ResponseEntity create(@RequestBody @Valid ProdutoQuantitavel entity){
         ProdutoQuantitavel save = service.salvar(entity);
-        return ResponseEntity.created(URI.create("/api/ProdutoQuantitavel/" + entity.getId())).body(save);
+        return ResponseEntity.created(URI.create("/api/produtoquantitavel/" + entity.getId())).body(save);
     }
 
     @GetMapping

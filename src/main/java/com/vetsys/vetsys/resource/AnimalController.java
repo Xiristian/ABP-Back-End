@@ -1,8 +1,13 @@
 package com.vetsys.vetsys.resource;
 import com.vetsys.vetsys.model.Animal;
+import com.vetsys.vetsys.model.Especie;
+import com.vetsys.vetsys.resource.representation.AnimalDTO;
+import com.vetsys.vetsys.resource.representation.EspecieDTO;
 import com.vetsys.vetsys.service.AnimalService;
 import com.vetsys.vetsys.service.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,7 +16,7 @@ import java.net.URI;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/animais")
+@RequestMapping("api/animal")
 public class AnimalController extends AbstractController{
 
   @Autowired
@@ -20,13 +25,16 @@ public class AnimalController extends AbstractController{
   @PostMapping
   public ResponseEntity create(@RequestBody @Valid Animal entity){
     Animal save = service.salvar(entity);
-    return ResponseEntity.created(URI.create("/api/animais/" + entity.getId())).body(save);
+    return ResponseEntity.created(URI.create("/api/animal/" + entity.getId())).body(save);
   }
 
   @GetMapping
-  public ResponseEntity findAll(){
-    List<Animal> animal = service.buscaTodos();
-    return ResponseEntity.ok(animal);
+  public ResponseEntity findAll(@RequestParam(required = false) String filter,
+                                @RequestParam(defaultValue = "0") int page,
+                                @RequestParam(defaultValue = "10") int size){
+    Page<Animal> animais = service.buscaTodos(filter, PageRequest.of(page, size));
+    Page<AnimalDTO> animaisDTO = AnimalDTO.fromEntity(animais);
+    return ResponseEntity.ok(animaisDTO);
   }
 
   @GetMapping("{id}")

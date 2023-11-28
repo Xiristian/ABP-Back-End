@@ -77,7 +77,7 @@ public class ProcedimentoDTO {
         return procedimento;
     }
     public static Page<ProcedimentoDTO> fromEntity(Page<Procedimento> procedimentos){
-        List<ProcedimentoDTO> procedimentosFind = procedimentos.stream().map(procedimento -> fromEntity(procedimento)).collect(Collectors.toList());
+        List<ProcedimentoDTO> procedimentosFind = procedimentos.stream().map(ProcedimentoDTO::fromEntity).collect(Collectors.toList());
         return new PageImpl<>(procedimentosFind, procedimentos.getPageable(), procedimentos.getTotalElements());
     }
 }

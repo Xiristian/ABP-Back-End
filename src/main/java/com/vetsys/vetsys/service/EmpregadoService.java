@@ -2,15 +2,18 @@ package com.vetsys.vetsys.service;
 
 import com.vetsys.vetsys.model.Animal;
 import com.vetsys.vetsys.model.Empregado;
-import com.vetsys.vetsys.model.QAnimal;
 import com.vetsys.vetsys.model.QEmpregado;
 import com.vetsys.vetsys.repository.EmpregadoRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class EmpregadoService {
 
   @Autowired
@@ -19,15 +22,19 @@ public class EmpregadoService {
   private ModelMapper modelMapper;
 
   public Empregado salvar(Empregado entity) {
-    if (!repository.findAll(QEmpregado.empregado.eq(entity.getCfmv())).isEmpty()){
-      throw new ValidationException("Não existe uma observação cadastrada!");
+    if (!repository.findAll(QEmpregado.empregado.cfmv.eq(entity.getCfmv())).isEmpty()){
+      throw new ValidationException("Já existe um empregado com esse CFMV cadastrado!");
     }
     return repository.save(entity);
   }
 
 
-  public List<Empregado> buscaTodos() {
-    return repository.findAll();
+  public List<Empregado> buscaTodos(String filter) {
+    return repository.findAll(filter, Empregado.class);
+  }
+
+  public Page<Empregado> buscaTodos(String filter, Pageable pageable) {
+    return repository.findAll(filter, Empregado.class, pageable);
   }
 
 

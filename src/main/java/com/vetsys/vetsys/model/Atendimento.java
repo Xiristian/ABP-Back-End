@@ -18,7 +18,7 @@ public class Atendimento extends EntitiyId{
     private Empregado empregado;
     @Column(nullable = false)
     private LocalDate dataAtendimento;
-    @OneToMany
+    @OneToMany(mappedBy = "atendimento", cascade = CascadeType.ALL)
     private List<ProdutoAtendimento> produtoAtendimento;
     @Column(nullable = false)
     private Boolean houveInternacao;

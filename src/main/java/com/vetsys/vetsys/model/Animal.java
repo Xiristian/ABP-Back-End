@@ -1,5 +1,7 @@
 package com.vetsys.vetsys.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 @Entity
@@ -18,6 +20,11 @@ public class Animal extends EntitiyId {
 
   @Column(name = "observacao")
   private String observacao;
+
+  @ManyToOne
+  @JoinColumn(name = "tutor_id")
+  @JsonIgnore
+  private Tutor tutor;
 
   public Animal() {
   }
@@ -69,5 +76,13 @@ public class Animal extends EntitiyId {
 
   public void setObservacao(String observacao) {
     this.observacao = observacao;
+  }
+
+  public Tutor getTutor() {
+    return tutor;
+  }
+
+  public void setTutor(Tutor tutor) {
+    this.tutor = tutor;
   }
 }

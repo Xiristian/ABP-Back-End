@@ -1,10 +1,13 @@
 package com.vetsys.vetsys.resource;
 
+import com.vetsys.vetsys.model.Animal;
 import com.vetsys.vetsys.model.Produto;
-import com.vetsys.vetsys.model.Produto;
+import com.vetsys.vetsys.model.ProdutoQuantitavel;
 import com.vetsys.vetsys.resource.representation.ProdutoDTO;
-import com.vetsys.vetsys.service.ProdutoService;
+import com.vetsys.vetsys.resource.representation.ProdutoQuantitavelDTO;
+import com.vetsys.vetsys.service.AnimalService;
 import com.vetsys.vetsys.service.NotFoundException;
+import com.vetsys.vetsys.service.ProdutoQuantitavelService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -15,31 +18,33 @@ import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
 
+
 @RestController
-@RequestMapping("/api/produto")
-public class ProdutoController extends AbstractController {
+@RequestMapping("api/produtoquantitavel")
+public class ProdutoQuantitavelController extends AbstractController{
+
     @Autowired
-    private ProdutoService service;
+    private ProdutoQuantitavelService service;
 
     @PostMapping
-    public ResponseEntity create(@RequestBody @Valid Produto entity){
-        Produto save = service.salvar(entity);
-        return ResponseEntity.created(URI.create("/api/produto/" + entity.getId())).body(save);
+    public ResponseEntity create(@RequestBody @Valid ProdutoQuantitavel entity){
+        ProdutoQuantitavel save = service.salvar(entity);
+        return ResponseEntity.created(URI.create("/api/produtoquantitavel/" + entity.getId())).body(save);
     }
 
     @GetMapping
     public ResponseEntity findAll(@RequestParam(required = false) String filter,
                                   @RequestParam(defaultValue = "0") int page,
                                   @RequestParam(defaultValue = "10") int size){
-        Page<Produto> produtos = service.buscaTodos(filter, PageRequest.of(page, size));
-        Page<ProdutoDTO> produtosDTO = ProdutoDTO.fromEntity(produtos);
-        return ResponseEntity.ok(produtosDTO);
+        Page<ProdutoQuantitavel> produtosQuantitaveis = service.buscaTodos(filter, PageRequest.of(page, size));
+        Page<ProdutoQuantitavelDTO> produtosQuantitaveisDTO = ProdutoQuantitavelDTO.fromEntity(produtosQuantitaveis);
+        return ResponseEntity.ok(produtosQuantitaveisDTO);
     }
 
     @GetMapping("{id}")
     public ResponseEntity findById(@PathVariable("id") Long id){
-        Produto produto = service.buscaPorId(id);
-        return ResponseEntity.ok(produto);
+        ProdutoQuantitavel produtoquantitavel = service.buscaPorId(id);
+        return ResponseEntity.ok(produtoquantitavel);
     }
 
     @DeleteMapping("{id}")
@@ -49,13 +54,12 @@ public class ProdutoController extends AbstractController {
     }
 
     @PutMapping("{id}")
-    public ResponseEntity update(@PathVariable("id") Long id, @RequestBody Produto entity){
+    public ResponseEntity update(@PathVariable("id") Long id, @RequestBody ProdutoQuantitavel entity){
         try {
-            Produto alterado = service.alterar(id, entity);
+            ProdutoQuantitavel alterado = service.alterar(id, entity);
             return ResponseEntity.ok().body(alterado);
         } catch (NotFoundException nfe){
             return ResponseEntity.noContent().build();
         }
     }
-
 }

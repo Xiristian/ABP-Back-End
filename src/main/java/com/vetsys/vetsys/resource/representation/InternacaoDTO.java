@@ -65,7 +65,7 @@ public class InternacaoDTO {
     }
 
     public static Page<InternacaoDTO> fromEntity(Page<Internacao> internacaos){
-        List<InternacaoDTO> internacaosFind = internacaos.stream().map(internacao -> fromEntity(internacao)).collect(Collectors.toList());
+        List<InternacaoDTO> internacaosFind = internacaos.stream().map(InternacaoDTO::fromEntity).collect(Collectors.toList());
         return new PageImpl<>(internacaosFind, internacaos.getPageable(), internacaos.getTotalElements());
     }
 }

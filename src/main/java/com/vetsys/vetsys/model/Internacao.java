@@ -5,7 +5,7 @@ import javax.persistence.Entity;
 
 @Entity
 @DiscriminatorValue("internacao")
-public class Internacao extends Produto{
+public class  Internacao extends Produto{
 
     public Internacao(Long id, String descricao, String observacao, Double valor) {
         super(id, descricao, observacao, valor);

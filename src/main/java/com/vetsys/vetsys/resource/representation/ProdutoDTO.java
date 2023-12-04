@@ -1,6 +1,8 @@
 package com.vetsys.vetsys.resource.representation;
 
+import com.vetsys.vetsys.model.Internacao;
 import com.vetsys.vetsys.model.Produto;
+import com.vetsys.vetsys.model.Remedio;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 
@@ -13,6 +15,7 @@ public class ProdutoDTO {
     private String descricao;
 
     private Double valor;
+    private String contraIndicacoes;
 
     public ProdutoDTO() {
     }
@@ -47,11 +50,23 @@ public class ProdutoDTO {
         return valor;
     }
 
+    public String getContraIndicacoes() {
+        return contraIndicacoes;
+    }
+
+    public void setContraIndicacoes(String contraIndicacoes) {
+        this.contraIndicacoes = contraIndicacoes;
+    }
+
     public static ProdutoDTO fromEntity(Produto produto){
         ProdutoDTO dto = new ProdutoDTO();
         dto.setId(produto.getId());
         dto.setObservacao(produto.getObservacao());
         dto.setDescricao(produto.getDescricao());
+        dto.setValor(produto.getValor());
+        if(produto instanceof Remedio){
+            dto.setContraIndicacoes(((Remedio) produto).getContraIndicacoes());
+        }
         return dto;
     }
 
@@ -61,6 +76,13 @@ public class ProdutoDTO {
         produto.setObservacao(this.getObservacao());
         produto.setDescricao(this.getDescricao());
         produto.setValor(this.getValor());
+        if(this.getContraIndicacoes() != null){
+            Remedio remedio = new Remedio(produto);
+            remedio.setContraIndicacoes(this.getContraIndicacoes());
+            System.out.println(remedio);
+            return remedio;
+        }
+        System.out.println(produto);
         return produto;
     }
 

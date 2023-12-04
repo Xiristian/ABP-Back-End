@@ -27,6 +27,9 @@ public class InternacaoAtendimento extends ProdutoAtendimento {
 
     }
 
+    public InternacaoAtendimento(ProdutoAtendimento produtoAtendimento) {
+        super(produtoAtendimento.getId(), produtoAtendimento.getProduto(), produtoAtendimento.getValor(), produtoAtendimento.getDesconto(), produtoAtendimento.getAtendimento());
+    }
 
     public LocalDate getDataInternacao() {
         return dataInternacao;

@@ -15,7 +15,7 @@ public class AtendimentoDTO {
     private TutorDTO tutor;
     private EmpregadoDTO empregado;
     private LocalDate dataAtendimento;
-    private List<ProdutoAtendimento> produtoAtendimento;
+    private List<ProdutoAtendimentoDTO> produtoAtendimento;
     private Boolean houveInternacao;
     private Double valorTotal;
 
@@ -62,11 +62,11 @@ public class AtendimentoDTO {
         this.dataAtendimento = dataAtendimento;
     }
 
-    public List<ProdutoAtendimento> getProdutoAtendimento() {
+    public List<ProdutoAtendimentoDTO> getProdutoAtendimento() {
         return produtoAtendimento;
     }
 
-    public void setProdutoAtendimento(List<ProdutoAtendimento> produtoAtendimento) {
+    public void setProdutoAtendimento(List<ProdutoAtendimentoDTO> produtoAtendimento) {
         this.produtoAtendimento = produtoAtendimento;
     }
 
@@ -93,7 +93,8 @@ public class AtendimentoDTO {
         dto.setTutor(TutorDTO.fromEntity(atendimento.getTutor()));
         dto.setEmpregado(EmpregadoDTO.fromEntity(atendimento.getEmpregado()));
         dto.setDataAtendimento(atendimento.getDataAtendimento());
-        dto.setProdutoAtendimento(atendimento.getProdutoAtendimento());
+        dto.setProdutoAtendimento(atendimento.getProdutoAtendimento().stream()
+                .map(ProdutoAtendimentoDTO::fromEntity).collect(Collectors.toList()));
         dto.setHouveInternacao(atendimento.getHouveInternacao());
         dto.setValorTotal(atendimento.getValorTotal());
         return dto;
@@ -106,7 +107,8 @@ public class AtendimentoDTO {
         atendimento.setTutor(this.getTutor().toEntity());
         atendimento.setEmpregado(this.getEmpregado().toEntity());
         atendimento.setDataAtendimento(this.getDataAtendimento());
-        atendimento.setProdutoAtendimento(this.getProdutoAtendimento());
+        atendimento.setProdutoAtendimento(this.getProdutoAtendimento().stream()
+                .map(ProdutoAtendimentoDTO::toEntity).collect(Collectors.toList()));
         atendimento.setHouveInternacao(this.getHouveInternacao());
         atendimento.setValorTotal(this.getValorTotal());
         return atendimento;

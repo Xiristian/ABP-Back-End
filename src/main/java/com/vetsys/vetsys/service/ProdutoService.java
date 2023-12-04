@@ -1,7 +1,5 @@
 package com.vetsys.vetsys.service;
-import com.vetsys.vetsys.model.Produto;
-import com.vetsys.vetsys.model.ProdutoQuantitavel;
-import com.vetsys.vetsys.model.QProduto;
+import com.vetsys.vetsys.model.*;
 import com.vetsys.vetsys.repository.ProdutoRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +14,14 @@ import java.util.Optional;
 public class ProdutoService {
     @Autowired
     private ProdutoRepository repository;
+    @Autowired
+    private ProdutoQuantitavelService produtoQuantitavelService;
+    @Autowired
+    private RemedioService remedioService;
+    @Autowired
+    private InternacaoService internacaoService;
+    @Autowired
+    private MaterialService materialService;
     @Autowired
     private ModelMapper modelMapper;
 

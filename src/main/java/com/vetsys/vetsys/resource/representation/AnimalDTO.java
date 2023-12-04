@@ -84,7 +84,8 @@ public class AnimalDTO {
     animal.setObservacao(this.getObservacao());
     animal.setIdade(this.getIdade());
     animal.setNome(this.getNome());
-    animal.setEspecie(this.getEspecie().toEntity());
+    if (this.getEspecie() != null){
+    animal.setEspecie(this.getEspecie().toEntity());}
     animal.setPorte(this.getPorte());
     return animal;
   }

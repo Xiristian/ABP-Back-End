@@ -24,12 +24,7 @@ public class AtendimentoService {
     private ModelMapper modelMapper;
 
     public Atendimento salvar(Atendimento entity) {
-        for (int i = 0; i < entity.getProdutoAtendimento().size(); i++) {
-            Produto produto = produtoRepository.findById(entity.getProdutoAtendimento().get(i).getProduto().getId()).orElse(null);
-            if (entity.getProdutoAtendimento().get(i) instanceof InternacaoAtendimento && (!(produto instanceof Internacao))) {
-                throw new ValidationException("Produto não é uma internação");
-            }
-        }
+        validaProdutos(entity);
         return repository.save(entity);
     }
 
@@ -51,13 +46,37 @@ public class AtendimentoService {
         if (existingAtendimentoOptional.isEmpty()){
             throw new NotFoundException("Atendimento não encontrado");
         }
-
+        validaProdutos(entity);
         Atendimento existingAtendimento = existingAtendimentoOptional.get();
         modelMapper.map(entity, existingAtendimento);
         return repository.save(existingAtendimento);
     }
 
+    private void validaProdutos(Atendimento entity) {
+        boolean existemInternacoes = false;
 
+        for (int i = 0; i < entity.getProdutoAtendimento().size(); i++) {
+            Produto produto = produtoRepository.findById(entity.getProdutoAtendimento().get(i).getProduto().getId()).orElse(null);
+
+            if (entity.getProdutoAtendimento().get(i) instanceof InternacaoAtendimento && !(produto instanceof Internacao)) {
+                throw new ValidationException("Produto não é uma internação");
+
+            } else if (entity.getProdutoAtendimento().get(i) instanceof ProcedimentoAtendimento && !(produto instanceof Procedimento)) {
+                throw new ValidationException("Produto não é um procedimento");
+
+            } else if (entity.getProdutoAtendimento().get(i) instanceof ProdutoQuantitavelAtendimento) {
+                if (!(produto instanceof Remedio) && !(produto instanceof Material)) {
+                    throw new ValidationException("Produto não é um remédio ou material");
+                }
+            }
+            if (entity.getProdutoAtendimento().get(i) instanceof InternacaoAtendimento) {
+                existemInternacoes = true;
+            }
+        }
+        if (entity.getHouveInternacao() != existemInternacoes) {
+            throw new ValidationException("O campo 'Houve internação' o e os registros de 'Internação' diferem no sistema!");
+        }
+    }
     public void remover(Long id) {
         repository.deleteById(id);
     }

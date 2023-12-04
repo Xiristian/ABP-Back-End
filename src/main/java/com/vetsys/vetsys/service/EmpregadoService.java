@@ -1,5 +1,6 @@
 package com.vetsys.vetsys.service;
 
+import com.vetsys.vetsys.enterprise.ValidarEmailMail;
 import com.vetsys.vetsys.model.Animal;
 import com.vetsys.vetsys.model.Empregado;
 import com.vetsys.vetsys.model.QEmpregado;
@@ -22,13 +23,14 @@ public class EmpregadoService {
   private ModelMapper modelMapper;
 
   public Empregado salvar(Empregado entity) {
+    if (!ValidarEmailMail.isValidEmailAddress(entity.getEmail())) {
+      throw new ValidationException("Endereço de e-mail inválido!");
+    }
     if (!repository.findAll(QEmpregado.empregado.cfmv.eq(entity.getCfmv())).isEmpty()){
       throw new ValidationException("Já existe um empregado com esse CFMV cadastrado!");
     }
     return repository.save(entity);
   }
-
-
   public List<Empregado> buscaTodos(String filter) {
     return repository.findAll(filter, Empregado.class);
   }

@@ -15,7 +15,7 @@ public class TutorDTO {
   private String email;
 
   private String cpf;
-  private List<AnimalDTO> animais;
+  //private List<AnimalDTO> animais;
 
   public TutorDTO() {
   }
@@ -68,13 +68,13 @@ public class TutorDTO {
     this.cpf = cpf;
   }
 
-  public List<AnimalDTO> getAnimais() {
+  /*public List<AnimalDTO> getAnimais() {
     return animais;
   }
 
   public void setAnimais(List<AnimalDTO> animais) {
     this.animais = animais;
-  }
+  }*/
 
   public static TutorDTO fromEntity(Tutor tutor){
     TutorDTO dto = new TutorDTO();
@@ -84,7 +84,7 @@ public class TutorDTO {
     dto.setEndereco(tutor.getEndereco());
     dto.setEmail(tutor.getEmail());
     dto.setCpf(tutor.getCpf());
-    dto.setAnimais(AnimalDTO.fromEntity(tutor.getAnimais()));
+    //dto.setAnimais(AnimalDTO.fromEntity(tutor.getAnimais()));
     return dto;
   }
 

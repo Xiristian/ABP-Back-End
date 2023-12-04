@@ -1,7 +1,9 @@
 package com.vetsys.vetsys.service;
 
-import com.vetsys.vetsys.model.Atendimento;
+import com.vetsys.vetsys.model.*;
 import com.vetsys.vetsys.repository.AtendimentoRepository;
+import com.vetsys.vetsys.repository.MaterialRepository;
+import com.vetsys.vetsys.repository.ProdutoRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -17,9 +19,17 @@ public class AtendimentoService {
     @Autowired
     private AtendimentoRepository repository;
     @Autowired
+    private ProdutoRepository produtoRepository;
+    @Autowired
     private ModelMapper modelMapper;
 
     public Atendimento salvar(Atendimento entity) {
+        for (int i = 0; i < entity.getProdutoAtendimento().size(); i++) {
+            Produto produto = produtoRepository.findById(entity.getProdutoAtendimento().get(i).getProduto().getId()).orElse(null);
+            if (entity.getProdutoAtendimento().get(i) instanceof InternacaoAtendimento && (!(produto instanceof Internacao))) {
+                throw new ValidationException("Produto não é uma internação");
+            }
+        }
         return repository.save(entity);
     }
 

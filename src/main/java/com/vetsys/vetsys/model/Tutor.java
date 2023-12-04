@@ -1,8 +1,5 @@
 package com.vetsys.vetsys.model;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.List;
 
 @Entity
@@ -10,8 +7,8 @@ public class Tutor extends Pessoa{
   @Column(name = "cpf")
   private String cpf;
 
-  @OneToMany(mappedBy = "tutor", cascade = CascadeType.ALL)
-  private List<Animal> animais;
+  //@OneToMany(mappedBy = "tutor", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+  //private List<Animal> animais;
 
   public Tutor() {
   }
@@ -19,7 +16,7 @@ public class Tutor extends Pessoa{
   public Tutor(Long id, String nome, String telefone, String endereco, String email, String cpf, List<Animal> animais) {
     super(id, nome, telefone, endereco, email);
     this.cpf = cpf;
-    this.animais = animais;
+    //this.animais = animais;
   }
   public String getCpf() {
     return cpf;
@@ -29,7 +26,7 @@ public class Tutor extends Pessoa{
     this.cpf = cpf;
   }
 
-  public List<Animal> getAnimais() {
+  /*public List<Animal> getAnimais() {
     return animais;
   }
 
@@ -43,7 +40,7 @@ public class Tutor extends Pessoa{
 
   public void delAnimais(Animal animal){
     this.animais.remove(animal);
-  }
+  }*/
 
 
 

@@ -2,6 +2,7 @@ package com.vetsys.vetsys.service;
 
 import com.vetsys.vetsys.model.*;
 import com.vetsys.vetsys.repository.AtendimentoRepository;
+import com.vetsys.vetsys.repository.MaterialRepository;
 import com.vetsys.vetsys.repository.ProdutoRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +25,6 @@ public class AtendimentoService {
 
     public Atendimento salvar(Atendimento entity) {
         validaProdutos(entity);
-
         return repository.save(entity);
     }
 

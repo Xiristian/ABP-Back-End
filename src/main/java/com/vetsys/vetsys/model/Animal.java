@@ -12,7 +12,7 @@ public class Animal extends EntitiyId {
   @Column(name = "idade")
   private int idade;
 
-  @ManyToOne
+  @ManyToOne(cascade = CascadeType.DETACH)
   @JoinColumn(name = "especie_id")
   private Especie especie;
   @Enumerated(EnumType.STRING)
@@ -21,9 +21,8 @@ public class Animal extends EntitiyId {
   @Column(name = "observacao")
   private String observacao;
 
-  @ManyToOne
+  @ManyToOne(cascade = CascadeType.DETACH)
   @JoinColumn(name = "tutor_id")
-  @JsonIgnore
   private Tutor tutor;
 
   public Animal() {

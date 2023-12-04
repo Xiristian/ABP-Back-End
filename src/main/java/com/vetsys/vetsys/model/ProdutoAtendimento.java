@@ -8,7 +8,7 @@ import javax.persistence.*;
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "tipo_produto_atendimento")
 public class ProdutoAtendimento extends EntitiyId{
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.DETACH)
     @JoinColumn(name = "produto_id")
     private Produto produto;
     @Column(nullable = false)

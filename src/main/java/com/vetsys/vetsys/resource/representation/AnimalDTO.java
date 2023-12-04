@@ -16,6 +16,7 @@ public class AnimalDTO {
   private EspecieDTO especie;
   private Porte porte;
   private String observacao;
+  private TutorDTO tutor;
   
   public Long getId() {
     return id;
@@ -65,6 +66,13 @@ public class AnimalDTO {
     this.observacao = observacao;
   }
 
+  public TutorDTO getTutor() {
+    return tutor;
+  }
+
+  public void setTutor(TutorDTO tutor) {
+    this.tutor = tutor;
+  }
 
   public static AnimalDTO fromEntity(Animal animal){
     AnimalDTO dto = new AnimalDTO();
@@ -72,9 +80,13 @@ public class AnimalDTO {
     dto.setObservacao(animal.getObservacao());
     dto.setIdade(animal.getIdade());
     dto.setNome(animal.getNome());
-    dto.setEspecie(EspecieDTO.fromEntity(animal.getEspecie()));
+    if (animal.getEspecie() != null){
+      dto.setEspecie(EspecieDTO.fromEntity(animal.getEspecie()));
+    }
+    if (animal.getTutor() != null){
+      dto.setTutor(TutorDTO.fromEntity(animal.getTutor()));
+    }
     dto.setPorte(animal.getPorte());
-
     return dto;
   }
 
@@ -85,7 +97,11 @@ public class AnimalDTO {
     animal.setIdade(this.getIdade());
     animal.setNome(this.getNome());
     if (this.getEspecie() != null){
-    animal.setEspecie(this.getEspecie().toEntity());}
+      animal.setEspecie(this.getEspecie().toEntity());
+    }
+    if (this.getTutor() != null){
+      animal.setTutor(this.getTutor().toEntity());
+    }
     animal.setPorte(this.getPorte());
     return animal;
   }

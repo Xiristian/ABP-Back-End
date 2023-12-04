@@ -6,13 +6,13 @@ import java.util.List;
 
 @Entity
 public class Atendimento extends EntitiyId{
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.DETACH)
     @JoinColumn(name = "animal_id")
     private Animal animal;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.DETACH)
     @JoinColumn(name = "tutor_id")
     private Tutor tutor;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.DETACH)
     @JoinColumn(name = "empregado_id")
     private Empregado empregado;
     @Column(nullable = false)

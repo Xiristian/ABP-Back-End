@@ -20,7 +20,8 @@ public class AtendimentoController extends AbstractController{
     private  AtendimentoService service;
 
     @PostMapping
-    public ResponseEntity create(@RequestBody @Valid Atendimento entity){
+    public ResponseEntity create(@RequestBody @Valid AtendimentoDTO dto){
+        Atendimento entity = dto.toEntity();
         Atendimento save = service.salvar(entity);
         return ResponseEntity.created(URI.create("/api/atendimento/" + entity.getId())).body(save);
     }

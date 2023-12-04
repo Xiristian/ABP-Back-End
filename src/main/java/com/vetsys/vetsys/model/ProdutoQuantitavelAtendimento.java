@@ -20,6 +20,10 @@ public class ProdutoQuantitavelAtendimento extends ProdutoAtendimento {
     public ProdutoQuantitavelAtendimento() {
     }
 
+    public ProdutoQuantitavelAtendimento(ProdutoAtendimento produtoAtendimento) {
+        super(produtoAtendimento.getId(), produtoAtendimento.getProduto(), produtoAtendimento.getValor(), produtoAtendimento.getDesconto(), produtoAtendimento.getAtendimento());
+    }
+
     public int getQuantidade() {
         return quantidade;
     }

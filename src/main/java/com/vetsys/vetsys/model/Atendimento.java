@@ -12,12 +12,12 @@ public class Atendimento extends EntitiyId{
     @ManyToOne
     @JoinColumn(name = "tutor_id")
     private Tutor tutor;
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "empregado_id")
     private Empregado empregado;
     @Column(nullable = false)
     private LocalDate dataAtendimento;
-    @OneToMany(mappedBy = "atendimento", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "atendimento", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<ProdutoAtendimento> produtoAtendimento;
     @Column(nullable = false)
     private Boolean houveInternacao;

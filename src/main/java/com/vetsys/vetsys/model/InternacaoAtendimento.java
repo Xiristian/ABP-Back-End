@@ -6,13 +6,13 @@ import java.time.LocalDate;
 @Entity
 @DiscriminatorValue("internacao_atendimento")
 public class InternacaoAtendimento extends ProdutoAtendimento {
-    @Column(nullable = false, name = "data_internacao")
+    @Column(name = "data_internacao")
     private LocalDate dataInternacao;
-    @Column(nullable = false, name = "data_liberacao")
+    @Column(name = "data_liberacao")
     private LocalDate dataLiberacao;
-    @Column(nullable = false, name = "quantidade_dias")
+    @Column(name = "quantidade_dias")
     private Double quantidadeDias;
-    @Column(nullable = false, name = "valor_total")
+    @Column(name = "valor_total")
     private Double valorTotal;
 
     public InternacaoAtendimento(Long id, Produto produto, Double valor, Double desconto, Atendimento atendimento, LocalDate dataInternacao, LocalDate dataLiberacao, Double quantidadeDias, Double valorTotal) {

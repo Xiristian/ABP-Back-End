@@ -6,7 +6,7 @@ import javax.persistence.Entity;
 @Entity
 public class Especie extends EntitiyId {
 
-  @Column(nullable = false)
+  @Column
   private String descricao;
 
   public Especie() {

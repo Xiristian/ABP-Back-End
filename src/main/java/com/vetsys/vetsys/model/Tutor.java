@@ -1,16 +1,16 @@
 package com.vetsys.vetsys.model;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import java.util.List;
-import java.util.Optional;
 
 @Entity
 public class Tutor extends Pessoa{
   @Column(name = "cpf")
   private String cpf;
 
-  @OneToMany(mappedBy = "tutor")
+  @OneToMany(mappedBy = "tutor", cascade = CascadeType.ALL)
   private List<Animal> animais;
 
   public Tutor() {

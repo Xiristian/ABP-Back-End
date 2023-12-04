@@ -8,7 +8,7 @@ import javax.persistence.Entity;
 @DiscriminatorValue("remedio")
 public class Remedio extends ProdutoQuantitavel{
 
-    @Column(name = "contra_indicacoes", nullable = false)
+    @Column(name = "contra_indicacoes")
     private String contraIndicacoes;
 
     public String getContraIndicacoes() {

@@ -6,9 +6,9 @@ import javax.persistence.*;
 @DiscriminatorValue("produto_quantitavel_atendimento")
 public class ProdutoQuantitavelAtendimento extends ProdutoAtendimento {
 
-    @Column(name = "quantidade", nullable = false)
+    @Column(name = "quantidade")
     private int quantidade;
-    @Column(name = "valor_total", nullable = false)
+    @Column(name = "valor_total")
     private Double valorTotal;
 
     public ProdutoQuantitavelAtendimento(Long id, Produto produto, Double valor, Double desconto, Atendimento atendimento, int quantidade, Double valorTotal) {

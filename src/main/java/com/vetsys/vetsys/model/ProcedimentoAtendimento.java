@@ -5,7 +5,7 @@ import java.time.LocalDate;
 @Entity
 @DiscriminatorValue("procedimento_atendimento")
 public class ProcedimentoAtendimento extends ProdutoAtendimento {
-    @Column(nullable = false)
+    @Column
     private LocalDate data;
 
     public ProcedimentoAtendimento(Long id, Produto produto, Double valor, Double desconto, Atendimento atendimento, LocalDate data) {

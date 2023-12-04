@@ -12,8 +12,7 @@ public class Atendimento extends EntitiyId{
     @ManyToOne
     @JoinColumn(name = "tutor_id")
     private Tutor tutor;
-    @ManyToOne
-
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "empregado_id")
     private Empregado empregado;
     @Column(nullable = false)

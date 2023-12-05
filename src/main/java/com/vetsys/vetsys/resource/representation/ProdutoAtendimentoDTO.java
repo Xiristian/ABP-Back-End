@@ -1,10 +1,6 @@
 package com.vetsys.vetsys.resource.representation;
 
-import com.vetsys.vetsys.model.InternacaoAtendimento;
-import com.vetsys.vetsys.model.ProcedimentoAtendimento;
-import com.vetsys.vetsys.model.ProdutoAtendimento;
-import com.vetsys.vetsys.model.ProdutoQuantitavelAtendimento;
-import com.vetsys.vetsys.service.ValidationException;
+import com.vetsys.vetsys.model.*;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -18,6 +14,7 @@ public class ProdutoAtendimentoDTO {
     private LocalDate dataInternacao;
     private LocalDate dataLiberacao;
     private LocalDate dataProcedimento;
+    private TipoProduto tipoProduto;
 
     public ProdutoAtendimentoDTO() {
     }
@@ -78,11 +75,36 @@ public class ProdutoAtendimentoDTO {
         this.dataProcedimento = dataProcedimento;
     }
 
+    public TipoProduto getTipoProduto() {
+        return tipoProduto;
+    }
+
+    public void setTipoProduto(TipoProduto tipoProduto) {
+        this.tipoProduto = tipoProduto;
+    }
+
     public static ProdutoAtendimentoDTO fromEntity(ProdutoAtendimento produtoAtendimento){
         ProdutoAtendimentoDTO dto = new ProdutoAtendimentoDTO();
         dto.setProduto(ProdutoDTO.fromEntity(produtoAtendimento.getProduto()));
         dto.setValor(produtoAtendimento.getValor());
         dto.setDesconto(produtoAtendimento.getDesconto());
+        if (produtoAtendimento instanceof ProdutoQuantitavelAtendimento){
+            dto.setProdutoQuantitavelAtendimento((ProdutoQuantitavelAtendimento) produtoAtendimento);
+            if (produtoAtendimento.getProduto() instanceof Remedio){
+                dto.setTipoProduto(TipoProduto.REMEDIO);
+            }
+            else if (produtoAtendimento.getProduto() instanceof Material){
+                dto.setTipoProduto(TipoProduto.MATERIAL);
+            }
+        }
+        else if (produtoAtendimento instanceof InternacaoAtendimento){
+            dto.setInternacaoAtendimento((InternacaoAtendimento) produtoAtendimento);
+            dto.setTipoProduto(TipoProduto.INTERNACAO);
+        }
+        else if (produtoAtendimento instanceof ProcedimentoAtendimento){
+            dto.setProcedimentoAtendimento((ProcedimentoAtendimento) produtoAtendimento);
+            dto.setTipoProduto(TipoProduto.PROCEDIMENTO);
+        }
         return dto;
     }
 
@@ -91,28 +113,24 @@ public class ProdutoAtendimentoDTO {
         produtoAtendimento.setProduto(this.getProduto().toEntity());
         produtoAtendimento.setValor(this.getValor());
         produtoAtendimento.setDesconto(this.getDesconto());
-        if (this.getQuantidade() > 0){
+        if (this.getTipoProduto() == TipoProduto.MATERIAL || this.getTipoProduto() == TipoProduto.REMEDIO){
             return getProdutoQuantitavelAtendimento(produtoAtendimento);
         }
-        if (this.getDataInternacao() != null && this.getDataLiberacao() != null){
+        else if (this.getTipoProduto() == TipoProduto.INTERNACAO){
             return getInternacaoAtendimento(produtoAtendimento);
         }
-        if (this.getDataProcedimento() != null){
+        else if (this.getTipoProduto() == TipoProduto.PROCEDIMENTO){
             return getProcedimentoAtendimento(produtoAtendimento);
         }
-        return produtoAtendimento;
+        else {
+            return produtoAtendimento;
+        }
     }
 
     private ProdutoQuantitavelAtendimento getProdutoQuantitavelAtendimento(ProdutoAtendimento produtoAtendimento) {
         ProdutoQuantitavelAtendimento produtoQuantitavelAtendimento = new ProdutoQuantitavelAtendimento(produtoAtendimento);
         produtoQuantitavelAtendimento.setQuantidade(this.getQuantidade());
         produtoQuantitavelAtendimento.setValorTotal(this.getValor() * this.getQuantidade() - this.getDesconto());
-        if (produtoQuantitavelAtendimento.getQuantidade() <= 0){
-            throw new ValidationException("Quantidade deve ser maior que zero");
-        }
-        if (produtoQuantitavelAtendimento.getValorTotal() <= 0){
-            throw new ValidationException("Valor total deve ser maior que zero");
-        }
         return produtoQuantitavelAtendimento;
     }
 
@@ -121,13 +139,7 @@ public class ProdutoAtendimentoDTO {
         internacaoAtendimento.setDataInternacao(this.getDataInternacao());
         internacaoAtendimento.setDataLiberacao(this.getDataLiberacao());
         internacaoAtendimento.setQuantidadeDias((double) this.getDataLiberacao().compareTo(this.getDataInternacao()));
-        if (internacaoAtendimento.getQuantidadeDias() <= 0){
-            throw new ValidationException("Data de liberação deve ser maior que a data de internação");
-        }
         internacaoAtendimento.setValorTotal(this.getValor() * internacaoAtendimento.getQuantidadeDias() - this.getDesconto());
-        if (internacaoAtendimento.getValorTotal() <= 0){
-            throw new ValidationException("Valor total deve ser maior que zero");
-        }
         return internacaoAtendimento;
     }
 
@@ -135,10 +147,20 @@ public class ProdutoAtendimentoDTO {
         ProcedimentoAtendimento procedimentoAtendimento = new ProcedimentoAtendimento(produtoAtendimento);
         procedimentoAtendimento.setData(this.getDataProcedimento());
         procedimentoAtendimento.setValorTotal(this.getValor() - this.getDesconto());
-        if (procedimentoAtendimento.getValorTotal() <= 0){
-            throw new ValidationException("Valor total deve ser maior que zero");
-        }
         return procedimentoAtendimento;
+    }
+
+    private void setProdutoQuantitavelAtendimento(ProdutoQuantitavelAtendimento produtoQuantitavelAtendimento) {
+        this.setQuantidade(produtoQuantitavelAtendimento.getQuantidade());
+    }
+
+    private void setInternacaoAtendimento(InternacaoAtendimento internacaoAtendimento) {
+        this.setDataInternacao(internacaoAtendimento.getDataInternacao());
+        this.setDataLiberacao(internacaoAtendimento.getDataLiberacao());
+    }
+
+    private void setProcedimentoAtendimento(ProcedimentoAtendimento procedimentoAtendimento) {
+        this.setDataProcedimento(procedimentoAtendimento.getData());
     }
 
     public static List<ProdutoAtendimentoDTO> fromEntity(List<ProdutoAtendimento> produtoAtendimentoList){

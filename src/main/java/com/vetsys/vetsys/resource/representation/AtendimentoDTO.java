@@ -17,7 +17,6 @@ public class AtendimentoDTO {
     private LocalDate dataAtendimento;
     private List<ProdutoAtendimentoDTO> produtoAtendimento;
     private Boolean houveInternacao;
-    private Double valorTotal;
 
     public AtendimentoDTO() {
     }
@@ -78,14 +77,6 @@ public class AtendimentoDTO {
         this.houveInternacao = houveInternacao;
     }
 
-    public Double getValorTotal() {
-        return valorTotal;
-    }
-
-    public void setValorTotal(Double valorTotal) {
-        this.valorTotal = valorTotal;
-    }
-
     public static AtendimentoDTO fromEntity(Atendimento atendimento){
         AtendimentoDTO dto = new AtendimentoDTO();
         dto.setId(atendimento.getId());
@@ -93,10 +84,8 @@ public class AtendimentoDTO {
         dto.setTutor(TutorDTO.fromEntity(atendimento.getTutor()));
         dto.setEmpregado(EmpregadoDTO.fromEntity(atendimento.getEmpregado()));
         dto.setDataAtendimento(atendimento.getDataAtendimento());
-        dto.setProdutoAtendimento(atendimento.getProdutoAtendimento().stream()
-                .map(ProdutoAtendimentoDTO::fromEntity).collect(Collectors.toList()));
+        dto.setProdutoAtendimento(ProdutoAtendimentoDTO.fromEntity(atendimento.getProdutoAtendimento()));
         dto.setHouveInternacao(atendimento.getHouveInternacao());
-        dto.setValorTotal(atendimento.getValorTotal());
         return dto;
     }
 
@@ -110,7 +99,6 @@ public class AtendimentoDTO {
         atendimento.setProdutoAtendimento(this.getProdutoAtendimento().stream()
                 .map(ProdutoAtendimentoDTO::toEntity).collect(Collectors.toList()));
         atendimento.setHouveInternacao(this.getHouveInternacao());
-        atendimento.setValorTotal(this.getValorTotal());
         return atendimento;
     }
 

@@ -38,7 +38,8 @@ public class AtendimentoController extends AbstractController{
     @GetMapping("{id}")
     public ResponseEntity findById(@PathVariable("id") Long id){
         Atendimento atendimento = service.buscaPorId(id);
-        return ResponseEntity.ok(atendimento);
+        AtendimentoDTO dto = AtendimentoDTO.fromEntity(atendimento);
+        return ResponseEntity.ok(dto);
     }
 
     @DeleteMapping("{id}")
@@ -48,8 +49,9 @@ public class AtendimentoController extends AbstractController{
     }
 
     @PutMapping("{id}")
-    public ResponseEntity update(@PathVariable("id") Long id, @RequestBody Atendimento entity){
+    public ResponseEntity update(@PathVariable("id") Long id, @RequestBody AtendimentoDTO dto){
         try {
+            Atendimento entity = dto.toEntity();
             Atendimento alterado = service.alterar(id, entity);
             return ResponseEntity.ok().body(alterado);
         } catch (NotFoundException nfe){

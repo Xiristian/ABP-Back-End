@@ -12,7 +12,6 @@ public class Remedio extends ProdutoQuantitavel{
     private String contraIndicacoes;
 
     public Remedio(Produto produto) {
-        super(produto.getId(), produto.getDescricao(), produto.getObservacao(), produto.getValor());
     }
 
     public String getContraIndicacoes() {

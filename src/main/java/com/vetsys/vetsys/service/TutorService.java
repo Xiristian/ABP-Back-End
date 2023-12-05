@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
+import com.vetsys.vetsys.enterprise.ValidarEmailMail;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,10 +20,19 @@ public class TutorService {
   @Autowired
   private ModelMapper modelMapper;
 
+  @Autowired
+  private ValidarEmailMail validarEmailMail;
+
+
   public Tutor salvar(Tutor entity) {
+    if (!ValidarEmailMail.isValidEmailAddress(entity.getEmail())) {
+      throw new ValidationException("Endereço de e-mail inválido!");
+    }
+
     if (!repository.findAll(QTutor.tutor.cpf.eq(entity.getCpf())).isEmpty()){
       throw new ValidationException("Já existe um tutor com esse CPF cadastrado!");
     }
+
     return repository.save(entity);
   }
 
@@ -55,5 +64,6 @@ public class TutorService {
   public void remover(Long id) {
     repository.deleteById(id);
   }
+
 }
 

@@ -1,8 +1,8 @@
 package com.vetsys.vetsys.service;
 
 
-import com.vetsys.vetsys.model.Internacao;
 import com.vetsys.vetsys.model.Material;
+import com.vetsys.vetsys.model.QMaterial;
 import com.vetsys.vetsys.repository.MaterialRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +22,9 @@ public class MaterialService {
 
 
     public Material salvar(Material entity) {
+        if (!repository.findAll(QMaterial.material.descricao.eq(entity.getDescricao())).isEmpty()){
+            throw new ValidationException("Já existe um material com essa descrição cadastrada!");
+        }
         return repository.save(entity);
     }
 

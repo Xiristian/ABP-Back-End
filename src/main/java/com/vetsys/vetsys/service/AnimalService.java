@@ -1,9 +1,6 @@
 package com.vetsys.vetsys.service;
 
 import com.vetsys.vetsys.model.Animal;
-import com.vetsys.vetsys.model.Especie;
-import com.vetsys.vetsys.model.Produto;
-import com.vetsys.vetsys.model.QAnimal;
 import com.vetsys.vetsys.repository.AnimalRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;

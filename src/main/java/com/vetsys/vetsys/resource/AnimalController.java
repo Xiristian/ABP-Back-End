@@ -1,8 +1,6 @@
 package com.vetsys.vetsys.resource;
 import com.vetsys.vetsys.model.Animal;
-import com.vetsys.vetsys.model.Especie;
 import com.vetsys.vetsys.resource.representation.AnimalDTO;
-import com.vetsys.vetsys.resource.representation.EspecieDTO;
 import com.vetsys.vetsys.service.AnimalService;
 import com.vetsys.vetsys.service.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.net.URI;
-import java.util.List;
 
 @RestController
 @RequestMapping("api/animal")

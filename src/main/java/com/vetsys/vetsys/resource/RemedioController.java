@@ -1,8 +1,5 @@
 package com.vetsys.vetsys.resource;
 
-
-
-import com.vetsys.vetsys.model.Remedio;
 import com.vetsys.vetsys.model.Remedio;
 import com.vetsys.vetsys.resource.representation.RemedioDTO;
 import com.vetsys.vetsys.service.NotFoundException;
@@ -15,7 +12,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.net.URI;
-import java.util.List;
 
 @RestController
 @RequestMapping("api/remedio")

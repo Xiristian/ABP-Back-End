@@ -1,7 +1,6 @@
 package com.vetsys.vetsys.resource;
 
 import com.vetsys.vetsys.model.Procedimento;
-import com.vetsys.vetsys.model.Procedimento;
 import com.vetsys.vetsys.resource.representation.ProcedimentoDTO;
 import com.vetsys.vetsys.service.ProcedimentoService;
 import com.vetsys.vetsys.service.NotFoundException;
@@ -13,7 +12,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.net.URI;
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/procedimento")

@@ -1,7 +1,6 @@
 package com.vetsys.vetsys.service;
 
 import com.vetsys.vetsys.enterprise.ValidarEmailMail;
-import com.vetsys.vetsys.model.Animal;
 import com.vetsys.vetsys.model.Empregado;
 import com.vetsys.vetsys.model.QEmpregado;
 import com.vetsys.vetsys.repository.EmpregadoRepository;

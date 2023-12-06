@@ -1,7 +1,6 @@
 package com.vetsys.vetsys.model;
 
 import javax.persistence.Column;
-import javax.persistence.Entity;
 import javax.persistence.MappedSuperclass;
 
 @MappedSuperclass

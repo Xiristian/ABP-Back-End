@@ -1,7 +1,5 @@
 package com.vetsys.vetsys.resource;
 
-import com.vetsys.vetsys.model.Empregado;
-import com.vetsys.vetsys.model.Tutor;
 import com.vetsys.vetsys.model.Tutor;
 import com.vetsys.vetsys.resource.representation.TutorDTO;
 import com.vetsys.vetsys.service.NotFoundException;
@@ -14,7 +12,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.net.URI;
-import java.util.List;
 
 @RestController
 @RequestMapping("api/tutor")

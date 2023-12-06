@@ -1,7 +1,6 @@
 package com.vetsys.vetsys.service;
 
 
-import com.vetsys.vetsys.model.Procedimento;
 import com.vetsys.vetsys.model.ProdutoQuantitavel;
 import com.vetsys.vetsys.model.QProdutoQuantitavel;
 import com.vetsys.vetsys.repository.ProdutoQuantitavelRepository;

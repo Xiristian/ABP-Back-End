@@ -1,11 +1,8 @@
 package com.vetsys.vetsys.resource;
 
 
-import com.vetsys.vetsys.model.Animal;
-import com.vetsys.vetsys.model.Material;
 import com.vetsys.vetsys.model.Material;
 import com.vetsys.vetsys.resource.representation.MaterialDTO;
-import com.vetsys.vetsys.service.AnimalService;
 import com.vetsys.vetsys.service.MaterialService;
 import com.vetsys.vetsys.service.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.net.URI;
-import java.util.List;
 
 @RestController
 @RequestMapping("api/material")

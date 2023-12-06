@@ -15,14 +15,6 @@ public class ProdutoService {
     @Autowired
     private ProdutoRepository repository;
     @Autowired
-    private ProdutoQuantitavelService produtoQuantitavelService;
-    @Autowired
-    private RemedioService remedioService;
-    @Autowired
-    private InternacaoService internacaoService;
-    @Autowired
-    private MaterialService materialService;
-    @Autowired
     private ModelMapper modelMapper;
 
     public Produto salvar(Produto entity) {

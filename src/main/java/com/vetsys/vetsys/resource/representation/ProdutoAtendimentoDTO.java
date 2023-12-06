@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 
 public class ProdutoAtendimentoDTO {
     private ProdutoDTO produto;
+    private Long id;
     private Double valor;
     private Double desconto;
     private int quantidade;
@@ -83,8 +84,17 @@ public class ProdutoAtendimentoDTO {
         this.tipoProduto = tipoProduto;
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public static ProdutoAtendimentoDTO fromEntity(ProdutoAtendimento produtoAtendimento){
         ProdutoAtendimentoDTO dto = new ProdutoAtendimentoDTO();
+        dto.setId(produtoAtendimento.getId());
         dto.setProduto(ProdutoDTO.fromEntity(produtoAtendimento.getProduto()));
         dto.setValor(produtoAtendimento.getValor());
         dto.setDesconto(produtoAtendimento.getDesconto());
@@ -110,6 +120,7 @@ public class ProdutoAtendimentoDTO {
 
     public ProdutoAtendimento toEntity(){
         ProdutoAtendimento produtoAtendimento = new ProdutoAtendimento();
+        produtoAtendimento.setId(this.getId());
         produtoAtendimento.setProduto(this.getProduto().toEntity());
         produtoAtendimento.setValor(this.getValor());
         produtoAtendimento.setDesconto(this.getDesconto());

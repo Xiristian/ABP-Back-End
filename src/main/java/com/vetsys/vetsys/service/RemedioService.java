@@ -1,6 +1,6 @@
 package com.vetsys.vetsys.service;
 
-import com.vetsys.vetsys.model.Produto;
+import com.vetsys.vetsys.model.QRemedio;
 import com.vetsys.vetsys.model.Remedio;
 import com.vetsys.vetsys.repository.RemedioRepository;
 import org.modelmapper.ModelMapper;
@@ -21,6 +21,9 @@ public class RemedioService {
     private ModelMapper modelMapper;
 
     public Remedio salvar(Remedio entity) {
+        if (!repository.findAll(QRemedio.remedio.descricao.eq(entity.getDescricao())).isEmpty()){
+            throw new ValidationException("Já existe um remédio com essa descrição cadastrada!");
+        }
         return repository.save(entity);
     }
 

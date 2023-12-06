@@ -1,11 +1,7 @@
 package com.vetsys.vetsys.resource;
 
-import com.vetsys.vetsys.model.Animal;
-import com.vetsys.vetsys.model.Produto;
 import com.vetsys.vetsys.model.ProdutoQuantitavel;
-import com.vetsys.vetsys.resource.representation.ProdutoDTO;
 import com.vetsys.vetsys.resource.representation.ProdutoQuantitavelDTO;
-import com.vetsys.vetsys.service.AnimalService;
 import com.vetsys.vetsys.service.NotFoundException;
 import com.vetsys.vetsys.service.ProdutoQuantitavelService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +12,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.net.URI;
-import java.util.List;
 
 
 @RestController

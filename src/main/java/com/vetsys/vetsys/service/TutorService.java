@@ -20,9 +20,6 @@ public class TutorService {
   @Autowired
   private ModelMapper modelMapper;
 
-  @Autowired
-  private ValidarEmailMail validarEmailMail;
-
 
   public Tutor salvar(Tutor entity) {
     if (!ValidarEmailMail.isValidEmailAddress(entity.getEmail())) {

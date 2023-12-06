@@ -4,7 +4,6 @@ import com.vetsys.vetsys.model.*;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 
-import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;

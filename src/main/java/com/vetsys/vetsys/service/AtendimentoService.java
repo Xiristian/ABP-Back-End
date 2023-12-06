@@ -49,6 +49,13 @@ public class AtendimentoService {
         validaProdutos(entity);
         Atendimento existingAtendimento = existingAtendimentoOptional.get();
         modelMapper.map(entity, existingAtendimento);
+        existingAtendimento.setId(id);
+        existingAtendimento.setDataAtendimento(entity.getDataAtendimento());
+        existingAtendimento.setAnimal(entity.getAnimal());
+        existingAtendimento.setTutor(entity.getTutor());
+        existingAtendimento.setEmpregado(entity.getEmpregado());
+        existingAtendimento.setHouveInternacao(entity.getHouveInternacao());
+        existingAtendimento.setValorTotal(entity.getValorTotal());
         return repository.save(existingAtendimento);
     }
 
